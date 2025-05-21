@@ -263,7 +263,7 @@ main { /* ou #app-main-content se estiver usando o SPA */
 
 .hero img {
     width: 100%;
-    height: 500px; /* Ajustada nas media queries */
+    height: 600px; /* Ajustada nas media queries */
     object-fit: cover;
     filter: brightness(0.6);
 }
@@ -816,7 +816,7 @@ footer {
     }
 
     .hero img {
-        height: 350px;
+        height: 400px;
     }
 
     .hero-content h2 {
