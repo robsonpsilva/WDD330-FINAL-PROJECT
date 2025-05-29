@@ -1,17 +1,40 @@
 {
-  "name": "riohiking",
-  "version": "1.0.0",
-  "description":"Website for hiking enthusiasts, where they can learn more about the sport, buy materials and services, find out about events and news in the area, and search for places where they can practice the sport.",
-
-  "dependencies": {
-    "lint": "^1.1.2",
-    "vite": "^6.3.5"
-  },
+  "name": "outside",
+  "version": "2.0.0",
+  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "main": "main.js",
   "scripts": {
+    "preview": "vite preview",
     "start": "vite",
     "build": "vite build --emptyOutDir",
     "lint": "eslint *.js src/**/*.js",
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
     "test": "jest"
+  },
+  "author": "Shane Thompson",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-import": "^2.29.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "vite": "^5.4.19"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
+  "dependencies": {
+    "lint": "^0.8.19",
+    "pretier": "^0.0.1"
   }
 }
