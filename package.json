@@ -1,0 +1,17 @@
+{
+  "name": "riohiking",
+  "version": "1.0.0",
+  "description":"Website for hiking enthusiasts, where they can learn more about the sport, buy materials and services, find out about events and news in the area, and search for places where they can practice the sport.",
+
+  "dependencies": {
+    "lint": "^1.1.2",
+    "vite": "^6.3.5"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build --emptyOutDir",
+    "lint": "eslint *.js src/**/*.js",
+    "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
+    "test": "jest"
+  }
+}

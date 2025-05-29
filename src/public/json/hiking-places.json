@@ -1,0 +1,40 @@
+[
+    {
+      "name": "Telegraph Rock",
+      "address": "Pedra Branca State Park, Barra de Guaratiba neighborhood, Rio de Janeiro",
+      "description": "It is a popular destination for hikers and tourists who want to take creative photos and enjoy the incredible views of the region. To get there, you need to take a trail that can vary between 3 and 4 km, depending on the starting point. Access can be via Caminho dos Pescadores or via the Point do Telégrafo restaurant.",
+      "image": "./images/pedra-do-telegrafo-270x200.webp"
+    },
+    {
+      "name": "Dois Irmãos Hill",
+      "address": "Vidigal, Rio de Janeiro",
+      "description": "The Morro Dois Irmãos Trail is one of the most iconic hikes in Rio de Janeiro. Located in Vidigal, the trail offers spectacular views of the city, including Christ the Redeemer, Leblon Beach, Pedra da Gávea, and São Conrado Beach. The trail starts in the Vidigal community and is approximately 1.6 km long. Depending on your fitness level, it can take up to 2 hours to complete the hike. Although it is considered a light to moderate trail, it is recommended to go with a guide as the signage is not very clear.",
+      "image": "./images/dois-irmaos-270x200.webp"
+    },
+    {
+      "name": "Gavea Rock",
+      "address": "Tijuca Forest, Rio de Janeiro",
+      "description": "It is one of the largest seaside monoliths in the world, with an altitude of 842 meters. Access to the trail begins on Estrada Sorimã, between the neighborhoods of São Conrado and Barra da Tijuca. The trail is challenging and requires physical fitness, but offers spectacular views of the city and the coast.",
+      "image": "./images/pedra-da-gavea-270x200.webp"
+    },
+    {
+      "name": "Pedra Bonita",
+      "address": "Parque Nacional da Tijuca, na Estrada das Canoas, em São Conrado, Rio de Janeiro",
+      "description": "Pedra Bonita is a famous tourist spot in Tijuca National Park, in Rio de Janeiro. Located at an altitude of about 693 meters, it offers an accessible trail and spectacular panoramic views of landmarks such as Morro Dois Irmãos, Pedra da Gávea and the city of Rio.",
+      "image": "./images/pedra-bonita-270x200.webp"
+    },
+    {
+      "name": "Gabriela Waterfall",
+      "address": "Sector A – Tijuca National Park, Rio de Janeiro"  ,
+      "description": "Gabriela Waterfall is a beautiful waterfall located in the Tijuca Forest. The trail to the waterfall is an enchanting journey, passing through dense vegetation and offering a refreshing bath upon arrival. This trail is considered easy to moderate, making it a great option for families with children. The path is well marked and maintained, ensuring a peaceful and safe walk. The trail to Gabriela Waterfall is a spectacle in itself, with several species of plants and animals native to the Atlantic Forest. The waterfall itself is a perfect place to relax and connect with nature.",
+      "image": "./images/cachoeira-gabriela-270x200.webp"
+    },
+
+    {
+      "name": "Urca Trail",
+      "address": "Urca neighborhood, in Rio de Janeiro, Brazil",
+      "description": "The Urca Trail is a hiking trail located in Rio de Janeiro. It begins at Pista Claudio Coutinho in Praça General Tiburcio and is a popular trail that offers stunning views of the city and Guanabara Bay. The trail is well marked and passes through a forest full of monkeys, providing a pleasant and safe experience for hikers of all ages.  The trail is short and well-traveled, with steps well-spaced into the hillside, making it accessible to most people.",
+      "image": "./images/urca-270x200.webp"
+    }
+]
+  
