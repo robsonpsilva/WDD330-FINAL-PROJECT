@@ -1,0 +1,65 @@
+
+h1{
+    margin-top: 10px;
+    margin-left: 15px;
+    color: var(--standard-blue);
+}
+h2{
+    margin: 10px;
+}
+
+input[type="date"]:invalid:required,
+input[type="time"]:invalid:required,
+select:invalid:required {
+    border-left-color: red;
+    border-left-width: 10px;
+}
+
+
+#schedule-form input:valid:required,
+#schedule-form select:valid:required {
+    border-left-width: 10px;
+    border-left-color: black;
+}
+
+
+#hiking-scheduler {
+    margin-top: 10px; 
+    margin-left: 15px;
+    margin-bottom: 10px;
+    max-width: 600px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#schedule-form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+#schedule-form label {
+    margin-top: 10px;
+}
+#schedule-form input, #schedule-form select, #schedule-form button {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+#schedule-form button {
+    margin-top: 20px;
+    background-color: var(--standard-blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#schedule-form button:hover {
+    background-color: black;
+}
+@media (max-width: 600px) {
+    #hiking-scheduler {
+        margin: 0 auto;
+        width: 94%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+    

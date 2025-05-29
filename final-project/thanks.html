@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thank You page to Rio de Janeiro hiking company. Discover here new adventures!">
+    <meta name="author" content="Robson Paulo da Silva">
+
+    <title>Rio de Janeiro Hiking Company Thank You Page</title>
+
+    <link rel="icon" href="./images/favicon.ico">
+
+    <link rel="stylesheet" href="./styles/join.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    
+    <link rel="stylesheet" href="./styles/large.css">
+    
+
+    <script src="./scripts/base.js" defer></script>
+    <script src="./scripts/thanks.js"></script>
+    <script src="../scripts/getdates.js" defer></script>
+
+    <meta property="og:title" content="Rio de Janeiro Hiking Company Thank You Page">
+    <meta property="og:url" content="https://robsonpsilva.github.io/wdd231/final-project/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Rio de Janeiro Hiking Company thank you page, the purpose of this page is thanks a client after joining Rio de Janeiro Hiking Company.">
+
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image" content="https://robsonpsilva.github.io/wdd231/final-project/images/rio_200x200">
+
+
+</head>
+<body>
+    <header id = "header-container" class = "header-container">
+        <div id = "header-title-image" class="header-title-image">
+            <img
+                srcset="
+                    ./images/rio_75x75.webp 75w,
+                    ./images/rio_100x100.webp 100w,
+                    ./images/rio_120x120.webp 120w
+                "
+                sizes="(max-width: 480px) 75px,
+                            (max-width: 800px) 100px,
+                            120px"
+                src="./images/rio_75x75.webp"
+                alt="Rio de Janeiro Hiking Logo">
+
+            <div id="business_name" class="business_name">
+                <span id="large_text">Rio de Janeiro</span>
+                <span id="small_text">Hiking Company</span>
+            </div>
+        </div>
+        <button id="menu" aria-label="Menu Button"></button>
+    </header>
+    <nav class="comp_nav">
+        <a href="./index.html" class="comp_nav_a">Home</a>
+        <a href="./details.html?number=1" class="comp_nav_a">Details</a>
+        <a href="./sell.html" class="comp_nav_a" target="_self">Buy</a>
+        <a href="./join.html" class="comp_nav_a  active" target="_self">Join Us</a>
+        <a href="./schedule.html?number=0" class="comp_nav_a" target="_self">Schedule</a>
+    </nav>
+    <main id = "thanksmain">
+        <div id = "thanksdata">
+                <ul>
+                    <li><strong>Name:</strong> <span id="thank-you-name-detail"></span></li>
+                    <li><strong>Address:</strong> <span id="thank-you-address"></span></li>
+                    <li><strong>Phone Number:</strong> <span id="thank-you-phone"></span></li>
+                    <li><strong>Email:</strong> <span id="thank-you-email"></span></li>
+                    <li><strong>Experience Level:</strong> <span id="thank-you-experience"></span></li>
+                </ul>
+                <p>We are excited to welcome you to our community of hiking enthusiasts. <br>You will receive a confirmation email shortly with more details.</p>
+                <p>If you have any questions, please do not hesitate to contact us.</p>
+                <p><a href="./index.html">Back to Homepage</a></p>
+            </div>
+
+    </main>
+    <footer id = "footer-section" class="footer-section" >
+        <div class="footer-container">
+            <h3 class="footer-heading">Rio de Janeiro Hiking Company</h3>
+            <p>
+                Avenida Presidente Vargas, 30000,
+                <br>Centro, Rio de Janeiro - RJ, Brazil
+                <br>riohiking@hiking.com.br
+                <br>+55 21 9    90009999
+            </p>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/" target="_blank"><img src="./images/youtube.webp" alt="Link to Youtube"></a>
+            <a href="https://x.com" target="_blank"><img src="./images/twitter.webp" alt="Link to Twitter"></a>
+            <a href="https://www.linkedin.com/" target="_blank"><img src="./images/linkedin.webp" alt="Link to LinkedIn"></a>
+          </div>
+        <div class="footer-container">
+            <h3 class="footer-heading">WDD231 Class Project</h3>
+            <p>
+                &copy;<span id="currentyear"></span> 🇧🇷 Robson Paulo da Silva 🇧🇷 Brazil
+            </p> 
+            <p id="lastModified">Last Modification 07/28/2024 17:52:00</p>
+        </div>
+    </footer>
+</body>
+</html>

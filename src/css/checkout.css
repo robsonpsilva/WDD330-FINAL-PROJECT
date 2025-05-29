@@ -1,0 +1,181 @@
+/* Variáveis para cores e tamanhos */
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha em telas menores */
+    gap: 30px; /* Espaçamento entre o formulário e o resumo */
+    max-width: 1200px; /* Largura máxima do layout */
+    width: 100%;
+    margin-top: 20px; /* Pequena margem superior */
+}
+
+/* Estilos do Formulário */
+.checkout-form {
+    flex: 2; /* O formulário ocupa 2 partes do espaço disponível */
+    min-width: 300px; /* Largura mínima para o formulário */
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form h2 {
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color); /* This line adds the border! */
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura */
+}
+
+/* Campo de CEP e Estado na mesma linha */
+.form-group-inline {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os campos */
+    margin-bottom: 15px;
+}
+
+.form-group-inline .form-group {
+    flex: 1; /* Faz com que cada campo ocupe o mesmo espaço */
+    margin-bottom: 0; /* Remove margem extra entre eles */
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos do Resumo do Pedido */
+.order-summary {
+    flex: 1; /* O resumo ocupa 1 parte do espaço disponível */
+    min-width: 250px; /* Largura mínima para o resumo */
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    align-self: flex-start; /* Alinha o resumo no topo do seu container flex */
+}
+
+.order-summary h2 {
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.summary-item span:first-child {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed var(--border-color);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Coloca os itens em coluna em telas menores */
+        padding: 10px;
+    }
+
+    .checkout-form,
+    .order-summary {
+        width: 100%; /* Ocupam a largura total */
+        min-width: unset; /* Remove largura mínima */
+        padding: 20px;
+    }
+
+    .form-group-inline {
+        flex-direction: column; /* Coloca os campos inline em coluna */
+        gap: 0; /* Remove o gap entre eles */
+    }
+     .form-group-inline .form-group {
+        margin-bottom: 15px; /* Restaura a margem inferior para campos em coluna */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .checkout-form h2,
+    .order-summary h2 {
+        font-size: 1.3em;
+    }
+
+    .form-group label {
+        font-size: 0.9em;
+    }
+
+    .form-group input,
+    .checkout-button {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    .summary-item,
+    .summary-total {
+        font-size: 0.95em;
+    }
+}
