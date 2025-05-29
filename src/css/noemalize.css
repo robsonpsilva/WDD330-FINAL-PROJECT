@@ -1,0 +1,48 @@
+/* normalize.css */
+/* Resets e normalizações básicas */
+html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* Adicione uma fonte padrão */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Tipografia básica para consistência */
+h1, h2, h3, p, ul, li {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do texto pai por padrão */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle; /* Evita espaço extra abaixo da imagem */
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    font: inherit; /* Herda a fonte do elemento pai */
+}
+
+/* Adicione mais normalizações conforme necessário */

@@ -1,7 +1,7 @@
 {
-  "name": "outside",
+  "name": "riohiking",
   "version": "2.0.0",
-  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "description": "Website for hiking enthusiasts",
   "main": "main.js",
   "scripts": {
     "preview": "vite preview",
@@ -11,7 +11,7 @@
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
     "test": "jest"
   },
-  "author": "Shane Thompson",
+  "author": "Robson Silva",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.57.1",
