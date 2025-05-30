@@ -71,6 +71,6 @@ fetch('json/hiking-places.json')
 
   function goToJoin() {
     // Redireciona para a página detail com o parâmetro na URL
-    window.location.href = `join.html`;
+    window.location.href = `../join/join.html`;
   }
 
