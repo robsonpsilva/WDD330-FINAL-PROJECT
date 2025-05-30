@@ -1,7 +1,7 @@
 [
     {
       "name": "Telegraph Rock",
-      "image": "./images/pedra-do-telegrafo.webp",
+      "image": "../images/pedra-do-telegrafo.webp",
       "type": "Light trail",
       "region": "Rio de Janeiro",
       "duration": "One morning",
@@ -10,7 +10,7 @@
     },
     {
         "name": "Dois Irmãos Hill",
-        "image": "./images/dois-irmaos.webp",
+        "image": "../images/dois-irmaos.webp",
         "type": "Light trail",
         "region": "Rio de Janeiro",
         "duration": "One morning",
@@ -19,7 +19,7 @@
     },
     {
       "name": "Gavea Rock",
-      "image": "./images/pedra-da-gavea.webp",
+      "image": "../images/pedra-da-gavea.webp",
       "type": "Hard trail",
       "region": "Rio de Janeiro",
       "duration": "All day",
@@ -28,7 +28,7 @@
     },
     {
       "name": "Pedra Bonita",
-      "image": "./images/pedra-bonita.webp",
+      "image": "../images/pedra-bonita.webp",
       "type": "Light trail",
       "region": "Rio de Janeiro",
       "duration": "One morning",
@@ -36,7 +36,7 @@
     },
     {
       "name": "Gabriela Waterfall",
-      "image": "./images/cachoeira-gabriela.webp",
+      "image": "../images/cachoeira-gabriela.webp",
       "type": "Extremely light trail",
       "region": "Rio de Janeiro",
       "duration": "Thirty minutes",
@@ -45,7 +45,7 @@
     ,
     {
       "name": "Urca Trail",
-      "image": "./images/urca.webp",
+      "image": "../images/urca.webp",
       "type": "Light trail",
       "region": "Rio de Janeiro",
       "duration": "One morning",
