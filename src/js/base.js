@@ -27,12 +27,11 @@ function tWayFinder(item){
 	})
 }
 
-fetch('./data/hiking-places.json')
+fetch('json/hiking-places.json')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log(response.json());
     return response.json();
   })
   .then(data => {
