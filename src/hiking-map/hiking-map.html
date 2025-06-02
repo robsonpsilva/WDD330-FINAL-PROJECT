@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota de Hiking com OpenStreetMap e OpenRouteService</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <h1>Localizar Rota de Hiking</h1>
+
+    <div class="controls">
+        <div>
+            <label for="startPoint">Ponto de Partida (Latitude, Longitude):</label>
+            <input type="text" id="startPoint" placeholder="-22.951912, -43.210487 (Corcovado)">
+        </div>
+        <div>
+            <label for="endPoint">Ponto de Chegada (Latitude, Longitude):</label>
+            <input type="text" id="endPoint" placeholder="-22.946369, -43.204595 (Parque Lage)">
+        </div>
+        <button onclick="findRoute()">Buscar Rota</button>
+        <div id="loader" class="loader"></div>
+    </div>
+    <div id="errorMessage" class="error"></div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>
