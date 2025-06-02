@@ -3,7 +3,6 @@
 // Use um proxy server para fazer as requisições ORS.
 const ORS_API_KEY = '5b3ce3597851110001cf6248615f32ba700946d9b4eb594c34e8c87f'; // Substitua pela sua chave!
 
-// Inicializa o mapa
 const map = L.map('map').setView([-22.951912, -43.210487], 13); // Centro inicial em Rio de Janeiro
 
 // Adiciona a camada de tiles do OpenStreetMap
@@ -14,8 +13,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let routeLayer = null; // Para armazenar a camada da rota
 
 async function findRoute() {
-    const startInput = document.getElementById('startPoint').value;
-    const endInput = document.getElementById('endPoint').value;
+    const startPointName = document.getElementById('startPoint').value;
+    const endPointName = document.getElementById('endPoint').value;
     const errorMessageDiv = document.getElementById('errorMessage');
     const loader = document.getElementById('loader');
 
@@ -29,18 +28,43 @@ async function findRoute() {
     }
 
     try {
-        // Validação e parse dos pontos
-        const parseCoordinates = (coordString) => {
-            const parts = coordString.split(',').map(s => parseFloat(s.trim()));
-            if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) {
-                throw new Error('Formato de coordenada inválido. Use "latitude, longitude".');
-            }
-            // ORS espera [longitude, latitude]
-            return [parts[1], parts[0]];
-        };
+                // Função para obter coordenadas usando a API maps_local
+        async function getCoordinates(placeName) {
+            // URL da API Nominatim para geocodificação
+        const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
 
-        const startCoords = parseCoordinates(startInput);
-        const endCoords = parseCoordinates(endInput);
+        const response = await fetch(nominatimUrl, {
+            headers: {
+                // É uma boa prática incluir um User-Agent para Nominatim
+                // Mais informações sobre a política de uso: https://operations.osmfoundation.org/policies/nominatim/
+                'User-Agent': 'MinhaAplicacaoDeHiking/1.0 (seu.email@exemplo.com)'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar coordenadas para "${placeName}": ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // Nominatim retorna latitude (lat) e longitude (lon) como strings
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            // OpenRouteService espera [longitude, latitude]
+            return [lon, lat];
+        } else {
+            throw new Error(`Local não encontrado: ${placeName}`);
+        }
+        }
+
+        // Obtém as coordenadas para o ponto de partida e chegada
+        const startCoords = await getCoordinates(startPointName);
+        const endCoords = await getCoordinates(endPointName);
+
+        if (!startCoords || !endCoords) {
+            throw new Error('Não foi possível obter as coordenadas para um ou ambos os locais.');
+        }
 
         // URL da API do OpenRouteService para roteamento de hiking
         const url = 'https://api.openrouteservice.org/v2/directions/foot-hiking/geojson';
@@ -89,8 +113,8 @@ async function findRoute() {
             // Exibe a distância e o tempo estimado (se disponível na resposta do ORS)
             const summary = data.features[0].properties.summary;
             if (summary) {
-                const distanceKm = (summary.distance / 1000).toFixed(2); // Distância em km
-                const durationMinutes = (summary.duration / 60).toFixed(0); // Duração em minutos
+                const distanceKm = (summary.distance / 1000).toFixed(2);
+                const durationMinutes = (summary.duration / 60).toFixed(0);
                 errorMessageDiv.textContent = `Distância: ${distanceKm} km, Duração Estimada: ${durationMinutes} minutos (aprox.)`;
                 errorMessageDiv.style.color = 'green';
             }
@@ -108,11 +132,3 @@ async function findRoute() {
         loader.style.display = 'none'; // Esconde o loader
     }
 }
-
-// Exemplo de coordenadas iniciais (Corcovado para Parque Lage, Rio de Janeiro)
-// Isso preenche os campos automaticamente para facilitar o teste.
-// É uma boa prática executar isso após o DOM estar carregado para garantir que os elementos existem.
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('startPoint').value = '-22.951912, -43.210487'; // Corcovado
-    document.getElementById('endPoint').value = '-22.946369, -43.204595'; // Parque Lage
-});
