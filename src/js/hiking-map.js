@@ -1,7 +1,7 @@
 // *** SUA CHAVE DE API DO OPENROUTESERVICE AQUI ***
 // Para produção, NUNCA exponha sua chave diretamente assim.
 // Use um proxy server para fazer as requisições ORS.
-const ORS_API_KEY = 'SUA_CHAVE_ORS_AQUI'; // Substitua pela sua chave!
+const ORS_API_KEY = '5b3ce3597851110001cf6248615f32ba700946d9b4eb594c34e8c87f'; // Substitua pela sua chave!
 
 // Inicializa o mapa
 const map = L.map('map').setView([-22.951912, -43.210487], 13); // Centro inicial em Rio de Janeiro
