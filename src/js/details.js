@@ -41,6 +41,19 @@ function schedule(){
   window.location.href = `schedule.html?number=${place}`;
 }
 
+function viewMap() {
+    const selectedTrailName = document.getElementById("trailSelect").value;
+    
+    if (selectedTrailName) {
+        // Encode the trail name to be safe in the URL
+        const encodedTrailName = encodeURIComponent(selectedTrailName);
+        // Redirect to hiking-map.html, passing the trail name as a query parameter
+        window.location.href = `../hiking-map/hiking-map.html?trail=${encodedTrailName}`;
+    } else {
+        alert("Please select a trail to view its map!");
+    }
+}
+
   // Executa a função ao carregar a página
   const params = new URLSearchParams(window.location.search);
   const place = params.get("number")

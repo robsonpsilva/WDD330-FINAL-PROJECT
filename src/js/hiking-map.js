@@ -1,134 +1,226 @@
-// *** SUA CHAVE DE API DO OPENROUTESERVICE AQUI ***
-// Para produção, NUNCA exponha sua chave diretamente assim.
-// Use um proxy server para fazer as requisições ORS.
-const ORS_API_KEY = '5b3ce3597851110001cf6248615f32ba700946d9b4eb594c34e8c87f'; // Substitua pela sua chave!
+// *** YOUR OPENROUTESERVICE API KEY HERE ***
+// For production, NEVER expose your key directly like this.
+// Use a proxy server to make ORS requests.
+const ORS_API_KEY = "5b3ce3597851110001cf6248615f32ba700946d9b4eb594c34e8c87f"; 
 
-const map = L.map('map').setView([-22.951912, -43.210487], 13); // Centro inicial em Rio de Janeiro
+const map = L.map("map").setView([-22.951912, -43.210487], 13); 
 
 // Adiciona a camada de tiles do OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
 
-let routeLayer = null; // Para armazenar a camada da rota
+let routeLayer = null; // To store the route layer
 
-async function findRoute() {
-    const startPointName = document.getElementById('startPoint').value;
-    const endPointName = document.getElementById('endPoint').value;
-    const errorMessageDiv = document.getElementById('errorMessage');
-    const loader = document.getElementById('loader');
+// --- Track Data (simulated as JSON) ---
+const trailsData = [
+    {
+        id: "1",
+        name: "Telegraph Rock",
+        start: "Estrada Roberto Burle Marx, Rio de Janeiro",
+        end: "Pedra do Telégrafo, Rio de Janeiro"
+    },
+    {
+        id:"2",
+        name: "Dois Irmãos Hill",
+        start: "Rua Carlos Duque, Rio de Janeiro",
+        end: "Irmão Maior, Rio de Janeiro"
+    },
+    {
+        id:"3",
+        name: "Gavea Rock Trail",
+        start: "Corcovado, Rio de Janeiro",
+        end: "Parque Lage, Rio de Janeiro"
+    },
+    {
+        id: "4",
+        name: "Pedra Bonita Trail",
+        start: "Rampa de Voo Livre, São Conrado, Rio de Janeiro",
+        end: "Pedra Bonita, Rio de Janeiro"
+    },
+      
+    {
+        id: "5",
+        name: "Gabriela Waterfall Trail",
+        start: "Restaurante Os Esquilos, Rio de Janeiro",
+        end: "Cascata Gabriela, Rio de Janeiro"
+    },
+    {
+        id : "6",
+        name: "Urca Trail",
+        start: "Pista Claudio Coutinho, Urca, Rio de Janeiro",
+        end: "Morro da Urca, Rio de Janeiro"
+    }
+    // Add more tracks here
+];
 
-    errorMessageDiv.textContent = ''; // Limpa mensagens de erro anteriores
-    loader.style.display = 'block'; // Mostra o loader
+// --- Functions for the Tracks Combo Box ---
 
-    // Remove a rota anterior, se houver
-    if (routeLayer) {
+// Fills the combo box with the tracks from the JSON
+function populateTrailSelect() {
+    const selectElement = document.getElementById("trailSelect");
+    selectElement.innerHTML = '<option value="">-- Select a track --</option>'; 
+
+    trailsData.forEach(trail => {
+        const option = document.createElement("option");
+        option.value = trail.id;       // The option's VALUE will now be the numeric ID
+        option.textContent = trail.name; // The visible TEXT will be the track name
+        selectElement.appendChild(option);
+    });
+}
+
+// Load the selected track in the source and destination fields (now only internal) and search for the route
+function loadSelectedTrail() {
+    const selectElement = document.getElementById("trailSelect");
+    const selectedTrailId = selectElement.value; // Get the ID (number) which is now the value
+    
+    const errorMessageDiv = document.getElementById("errorMessage");
+    const loader = document.getElementById("loader");
+
+    errorMessageDiv.textContent = ""; 
+    loader.style.display = "block"; 
+
+    if (routeLayer) { 
         map.removeLayer(routeLayer);
         routeLayer = null;
     }
 
+    if (selectedTrailId === "") { 
+        loader.style.display = "none";
+        return; 
+    }
+
+  // Search for the track by ID, but we need the start/end points (which are in the 'name')  
+    const selectedTrail = trailsData.find(trail => trail.id === selectedTrailId);
+
+    if (selectedTrail) {
+        findRoute(selectedTrail.start, selectedTrail.end); 
+    } else {
+        errorMessageDiv.textContent = "Erro: Trilha selecionada não encontrada nos dados.";
+        loader.style.display = "none";
+    }
+}
+
+
+// --- Main logic to fetch the route (now with parameters) ---
+async function findRoute(startPointName, endPointName) {
+    const errorMessageDiv = document.getElementById("errorMessage");
+    const loader = document.getElementById("loader"); // Loader should already be visible here
+
     try {
-                // Função para obter coordenadas usando a API maps_local
+        // Function to get coordinates using the Nominatim API
         async function getCoordinates(placeName) {
-            // URL da API Nominatim para geocodificação
-        const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
+            const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
 
-        const response = await fetch(nominatimUrl, {
-            headers: {
-                // É uma boa prática incluir um User-Agent para Nominatim
-                // Mais informações sobre a política de uso: https://operations.osmfoundation.org/policies/nominatim/
-                'User-Agent': 'MinhaAplicacaoDeHiking/1.0 (seu.email@exemplo.com)'
+            const response = await fetch(nominatimUrl, {
+                headers: {
+                    "User-Agent": "MinhaAplicacaoDeHiking/1.0 (seu.email@exemplo.com)"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error fetching coordinates for "${placeName}": ${response.statusText}`);
             }
-        });
 
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar coordenadas para "${placeName}": ${response.statusText}`);
+            const data = await response.json();
+
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                return [lon, lat]; // OpenRouteService expects [longitude, latitude]
+            } else {
+                throw new Error(`Location not found: ${placeName}`);
+            }
         }
 
-        const data = await response.json();
-
-        if (data && data.length > 0) {
-            // Nominatim retorna latitude (lat) e longitude (lon) como strings
-            const lat = parseFloat(data[0].lat);
-            const lon = parseFloat(data[0].lon);
-            // OpenRouteService espera [longitude, latitude]
-            return [lon, lat];
-        } else {
-            throw new Error(`Local não encontrado: ${placeName}`);
-        }
-        }
-
-        // Obtém as coordenadas para o ponto de partida e chegada
+        // Get the coordinates for the starting and ending point
         const startCoords = await getCoordinates(startPointName);
         const endCoords = await getCoordinates(endPointName);
 
         if (!startCoords || !endCoords) {
-            throw new Error('Não foi possível obter as coordenadas para um ou ambos os locais.');
+            throw new Error("Could not get coordinates for one or both locations.");
         }
 
-        // URL da API do OpenRouteService para roteamento de hiking
-        const url = 'https://api.openrouteservice.org/v2/directions/foot-hiking/geojson';
+        // OpenRouteService API URL for hiking routing
+        const url = "https://api.openrouteservice.org/v2/directions/foot-hiking/geojson";
 
         const response = await fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, application/polyline',
-                'Content-Type': 'application/json',
-                'Authorization': ORS_API_KEY
+                "Accept": "application/json, application/geo+json, application/gpx+xml, application/polyline",
+                "Content-Type": "application/json",
+                "Authorization": ORS_API_KEY
             },
             body: JSON.stringify({
                 coordinates: [startCoords, endCoords],
-                profile: 'foot-hiking', // Perfil de roteamento para hiking
+                profile: "foot-hiking", // Routing profile for hiking
             })
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Erro na API do OpenRouteService: ${response.status} - ${errorData.error ? errorData.error.message : 'Erro desconhecido'}`);
+            throw new Error(`OpenRouteService API Error: ${response.status} - ${errorData.error ? errorData.error.message : "Unknown error"}`);
         }
 
         const data = await response.json();
 
         if (data.features && data.features.length > 0) {
             const route = data.features[0].geometry.coordinates;
-            // As coordenadas do GeoJSON estão em [longitude, latitude], Leaflet precisa [latitude, longitude]
-            const leafletCoords = route.map(coord => [coord[1], coord[0]]);
+            const leafletCoords = route.map(coord => [coord[1], coord[0]]); // Leaflet needs [latitude, longitude]
 
-            // Adiciona a rota ao mapa
+            // Add the route to the map
             routeLayer = L.polyline(leafletCoords, {
-                color: 'blue',
+                color: "blue",
                 weight: 5,
                 opacity: 0.7
             }).addTo(map);
 
-            // Ajusta o zoom do mapa para a rota
+            // Adjust map zoom to route
             map.fitBounds(routeLayer.getBounds());
 
-            // Adiciona marcadores de início e fim
+            // Add start and end markers
             L.marker(leafletCoords[0]).addTo(map)
-                .bindPopup('Ponto de Partida').openPopup();
+                .bindPopup(`Partida: ${startPointName}`).openPopup(); // Use the location name
             L.marker(leafletCoords[leafletCoords.length - 1]).addTo(map)
-                .bindPopup('Ponto de Chegada').openPopup();
+                .bindPopup(`Chegada: ${endPointName}`).openPopup(); // Use the location name
 
-            // Exibe a distância e o tempo estimado (se disponível na resposta do ORS)
+            // Display the distance and estimated time (if available in the ORS response)
             const summary = data.features[0].properties.summary;
             if (summary) {
                 const distanceKm = (summary.distance / 1000).toFixed(2);
                 const durationMinutes = (summary.duration / 60).toFixed(0);
-                errorMessageDiv.textContent = `Distância: ${distanceKm} km, Duração Estimada: ${durationMinutes} minutos (aprox.)`;
-                errorMessageDiv.style.color = 'green';
+                errorMessageDiv.textContent = `Distance: ${distanceKm} km, Estimated Duration: ${durationMinutes} minutes (approx.)`;
+                errorMessageDiv.style.color = "green";
             }
 
         } else {
-            errorMessageDiv.textContent = 'Nenhuma rota encontrada para os pontos fornecidos.';
-            errorMessageDiv.style.color = 'orange';
+            errorMessageDiv.textContent = "No routes found for the given points.";
+            errorMessageDiv.style.color = "orange";
         }
 
     } catch (error) {
-        console.error('Erro ao buscar rota:', error);
-        errorMessageDiv.textContent = `Erro: ${error.message}`;
-        errorMessageDiv.style.color = 'red';
+        console.error("Error fetching route:", error);
+        errorMessageDiv.textContent = `Error: ${error.message}`;
+        errorMessageDiv.style.color = "red";
     } finally {
-        loader.style.display = 'none'; // Esconde o loader
+        loader.style.display = "none"; // Hide the loader
     }
 }
+
+// --- Executes when the page loads ---
+document.addEventListener("DOMContentLoaded", () => {
+    populateTrailSelect(); // Fill the combo box
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const trailNameFromUrl = urlParams.get("trail");
+    
+    if (trailNameFromUrl) {
+        // If present, preselect in combo
+        const selectElement = document.getElementById("trailSelect");
+        // The select value must be the exact track name received in the URL
+        selectElement.value = trailNameFromUrl;
+        
+        // And then load the trail on the map
+        loadSelectedTrail(); 
+    }
+});

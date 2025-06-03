@@ -1,33 +1,101 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rota de Hiking com OpenStreetMap e OpenRouteService</title>
+    <meta name="description" content="Main page to Rio de Janeiro hiking company. Discover here new adventures!">
+    <meta name="author" content="Robson Paulo da Silva">
 
+    <title>Rio de Janeiro Hiking Company Home Page</title>
+
+    <link rel="icon" href="images/favicon.ico">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/large.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="../css/hiking-map.css"> 
+
+    <script src="../js/base.js" defer></script>
+    <script src="../js/getdates.js" defer></script>
+
+   
 </head>
 <body>
-    <h1>Localizar Rota de Hiking</h1>
+    <header id = "header-container" class = "header-container">
+        <div id = "header-title-image" class="header-title-image">
+            <img
+                srcset="
+                    ../images/rio_75x75.webp 75w,
+                    ../images/rio_100x100.webp 100w,
+                    ../images/rio_120x120.webp 120w
+                "
+                sizes="(max-width: 480px) 75px,
+                            (max-width: 800px) 100px,
+                            120px"
+                src="../images/rio_75x75.webp"
+                alt="Rio de Janeiro Hiking Logo">
 
-    <div class="controls">
-        <div>
-            <label for="startPoint">Ponto de Partida (Nome do Local):</label>
-            <input type="text" id="startPoint" placeholder="Corcovado, Rio de Janeiro">
+            <div id="business_name" class="business_name">
+                <span id="large_text">Rio de Janeiro</span>
+                <span id="small_text">Hiking Company</span>
+            </div>
         </div>
-        <div>
-            <label for="endPoint">Ponto de Chegada (Nome do Local):</label>
-            <input type="text" id="endPoint" placeholder="Parque Lage, Rio de Janeiro">
+        <button id="menu" aria-label="Menu Button"></button>
+    </header>
+    <nav class="comp_nav">
+        <a href="../index.html" class="comp_nav_a active">Home</a>
+        <a href="../details/details.html?number=1" class="comp_nav_a">Details</a>
+        <a href="../cart/sell.html" class="comp_nav_a" target="_self">Buy</a>
+        <a href="../join.html" class="comp_nav_a" target="_self">Join Us</a>
+        <a href="../schedule/schedule.html?number=0" class="comp_nav_a" target="_self">Schedule</a>
+        <a href="./hiking-map/hiking-map.html" class="comp_nav_a">Hiking Map</a>
+    </nav>
+    <main>
+        <div class="hero">
+            <button class="cta-button" onclick="goToJoin()">Join Us</button>
         </div>
-        <button onclick="findRoute()">Buscar Rota</button>
-        <div id="loader" class="loader"></div>
-    </div>
-    <div id="errorMessage" class="error"></div>
+        <h1>Localizar Rota de Hiking</h1>
 
-    <div id="map"></div>
+        <div class="controls">
+            <div>
+                <label for="trailSelect">Selecionar Trilha:</label>
+                <select id="trailSelect" onchange="loadSelectedTrail()">
+                    <option value="">-- Selecione uma trilha --</option>
+                </select>
+                <div id="loader" class="loader"></div>
+            </div>
+        </div>
+        <div id="errorMessage" class="error"></div>
+
+        <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="../js/hiking-map.js"></script> 
+
+    </main>
+    <footer id = "footer-section" class="footer-section" >
+        <div class="footer-container">
+            <h3 class="footer-heading">Rio de Janeiro Hiking Company</h3>
+            <p>
+                Avenida Presidente Vargas, 30000,
+                <br>Centro, Rio de Janeiro - RJ, Brazil
+                <br>riohiking@hiking.com.br
+                <br>+55 21 9    90009999
+            </p>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/" target="_blank"><img src="../images/youtube.webp" alt="Link to Youtube"></a>
+            <a href="https://x.com" target="_blank"><img src="../images/twitter.webp" alt="Link to Twitter"></a>
+            <a href="https://www.linkedin.com/" target="_blank"><img src="../images/linkedin.webp" alt="Link to LinkedIn"></a>
+          </div>
+        <div class="footer-container">
+            <h3 class="footer-heading">WDD330 Class Project</h3>
+            <p>
+                &copy;<span id="currentyear"></span> 🇧🇷 Robson Paulo da Silva 🇧🇷 Brazil
+            </p> 
+            <p id="lastModified">Last Modification 07/28/2024 17:52:00</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -73,6 +73,7 @@ body {
     padding: 20px;
     text-align: center;
   }
+  
   .action{
     display: flex;
     flex-direction: column;
@@ -98,7 +99,7 @@ body {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
-    text-align: center; /* Alinha o título à esquerda */
+    text-align: center; 
   }
 
   .info {
