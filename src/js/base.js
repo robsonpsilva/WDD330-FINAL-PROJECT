@@ -27,7 +27,7 @@ function tWayFinder(item){
 	})
 }
 
-fetch('json/hiking-places.json')
+fetch('./json/hiking-places.json')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
