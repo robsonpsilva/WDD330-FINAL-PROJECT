@@ -5,6 +5,8 @@ const ORS_API_KEY = "5b3ce3597851110001cf6248615f32ba700946d9b4eb594c34e8c87f";
 
 const map = L.map("map").setView([-22.951912, -43.210487], 13); 
 
+let dataTrail;
+
 // Adiciona a camada de tiles do OpenStreetMap
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
@@ -13,51 +15,30 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 let routeLayer = null; // To store the route layer
 
 // --- Track Data (simulated as JSON) ---
-const trailsData = [
-    {
-        id: "1",
-        name: "Telegraph Rock",
-        start: "Estrada Roberto Burle Marx, Rio de Janeiro",
-        end: "Pedra do Telégrafo, Rio de Janeiro"
-    },
-    {
-        id:"2",
-        name: "Dois Irmãos Hill",
-        start: "Rua Carlos Duque, Rio de Janeiro",
-        end: "Irmão Maior, Rio de Janeiro"
-    },
-    {
-        id:"3",
-        name: "Gavea Rock Trail",
-        start: "Corcovado, Rio de Janeiro",
-        end: "Parque Lage, Rio de Janeiro"
-    },
-    {
-        id: "4",
-        name: "Pedra Bonita Trail",
-        start: "Rampa de Voo Livre, São Conrado, Rio de Janeiro",
-        end: "Pedra Bonita, Rio de Janeiro"
-    },
-      
-    {
-        id: "5",
-        name: "Gabriela Waterfall Trail",
-        start: "Restaurante Os Esquilos, Rio de Janeiro",
-        end: "Cascata Gabriela, Rio de Janeiro"
-    },
-    {
-        id : "6",
-        name: "Urca Trail",
-        start: "Pista Claudio Coutinho, Urca, Rio de Janeiro",
-        end: "Morro da Urca, Rio de Janeiro"
+
+
+
+
+async function loadTrailsData() {
+    try {
+        data = [];
+        const response = await fetch('../json/hiking-map.json');
+        if (!response.ok) {
+            throw new Error(`Failed to load JSON: ${response.statusText}`);
+        }
+        data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error loading trails data:", error);
     }
-    // Add more tracks here
-];
+}
+
+
 
 // --- Functions for the Tracks Combo Box ---
 
 // Fills the combo box with the tracks from the JSON
-function populateTrailSelect() {
+async function populateTrailSelect(trailsData) {
     const selectElement = document.getElementById("trailSelect");
     selectElement.innerHTML = '<option value="">-- Select a track --</option>'; 
 
@@ -67,10 +48,11 @@ function populateTrailSelect() {
         option.textContent = trail.name; // The visible TEXT will be the track name
         selectElement.appendChild(option);
     });
+    return trailsData;
 }
 
 // Load the selected track in the source and destination fields (now only internal) and search for the route
-function loadSelectedTrail() {
+async function loadSelectedTrail(trailsData) {
     const selectElement = document.getElementById("trailSelect");
     const selectedTrailId = selectElement.value; // Get the ID (number) which is now the value
     
@@ -133,12 +115,51 @@ async function findRoute(startPointName, endPointName) {
             }
         }
 
-        // Get the coordinates for the starting and ending point
-        const startCoords = await getCoordinates(startPointName);
-        const endCoords = await getCoordinates(endPointName);
+        let startCoords = null;
+        let endCoords = null;
+
+        // Attempt to get coordinates from provided start and end point names
+        if (startPointName && endPointName) {
+            try {
+                startCoords = await getCoordinates(startPointName);
+                endCoords = await getCoordinates(endPointName);
+            } catch (error) {
+                console.warn(`Could not find route by start/end points: ${error.message}. Attempting to search by trail name.`);
+            }
+        }
+
+        // If start or end coords are still null, try to find the route by trail name
+        if ((!startCoords || !endCoords) && trailName) {
+            const allTrails = await loadTrailsData(); // Reload data if not already available
+            const trailByName = allTrails.find(trail => trail.name === trailName);
+
+            if (trailByName && trailByName.start && trailByName.end) {
+                try {
+                    startCoords = await getCoordinates(trailByName.start);
+                    endCoords = await getCoordinates(trailByName.end);
+                } catch (error) {
+                    console.error(`Error fetching coordinates for trail "${trailName}" by its internal start/end points: ${error.message}`);
+                    // Fallback to searching the trail name itself
+                    try {
+                        startCoords = await getCoordinates(`${trailName} start`);
+                        endCoords = await getCoordinates(`${trailName} end`);
+                    } catch (error) {
+                        throw new Error(`Could not get coordinates for trail "${trailName}" or its start/end points.`);
+                    }
+                }
+            } else {
+                // If trailByName doesn't have start/end, try searching the trail name directly
+                try {
+                    startCoords = await getCoordinates(`${trailName} start`);
+                    endCoords = await getCoordinates(`${trailName} end`);
+                } catch (error) {
+                    throw new Error(`Could not get coordinates for trail "${trailName}".`);
+                }
+            }
+        }
 
         if (!startCoords || !endCoords) {
-            throw new Error("Could not get coordinates for one or both locations.");
+            throw new Error("Could not get coordinates for one or both locations after attempting by points and trail name.");
         }
 
         // OpenRouteService API URL for hiking routing
@@ -180,9 +201,9 @@ async function findRoute(startPointName, endPointName) {
 
             // Add start and end markers
             L.marker(leafletCoords[0]).addTo(map)
-                .bindPopup(`Partida: ${startPointName}`).openPopup(); // Use the location name
+                .bindPopup(`Partida: ${startPointName || trailName}`).openPopup(); // Use the location name
             L.marker(leafletCoords[leafletCoords.length - 1]).addTo(map)
-                .bindPopup(`Chegada: ${endPointName}`).openPopup(); // Use the location name
+                .bindPopup(`Destination: ${endPointName || trailName}`).openPopup(); // Use the location name
 
             // Display the distance and estimated time (if available in the ORS response)
             const summary = data.features[0].properties.summary;
@@ -207,20 +228,30 @@ async function findRoute(startPointName, endPointName) {
     }
 }
 
+function loadMap(){
+    loadSelectedTrail(dataTrail);
+}
+
 // --- Executes when the page loads ---
 document.addEventListener("DOMContentLoaded", () => {
-    populateTrailSelect(); // Fill the combo box
+    loadTrailsData().then(trailsData => 
+        populateTrailSelect(trailsData)).then(trailsData=>{
+        dataTrail = trailsData;
+        const urlParams = new URLSearchParams(window.location.search);
+        const trailNameFromUrl = urlParams.get("trail");
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const trailNameFromUrl = urlParams.get("trail");
-    
-    if (trailNameFromUrl) {
-        // If present, preselect in combo
-        const selectElement = document.getElementById("trailSelect");
-        // The select value must be the exact track name received in the URL
-        selectElement.value = trailNameFromUrl;
-        
-        // And then load the trail on the map
-        loadSelectedTrail(); 
+        if (trailNameFromUrl) {
+            // If present, preselect in combo
+            const selectElement = document.getElementById("trailSelect");
+            // The select value must be the exact track name received in the URL
+            selectElement.value = trailNameFromUrl;
+            
+            // And then load the trail on the map
+            loadSelectedTrail(trailsData); 
+
+        } 
+    }).catch(error => {
+    console.error("Error loading trails:", error);
     }
+    );
 });

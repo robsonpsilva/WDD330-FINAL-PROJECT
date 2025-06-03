@@ -1,0 +1,40 @@
+[
+    {
+        "id": "1",
+        "name": "Telegraph Rock",
+        "start": "Estrada Roberto Burle Marx, Rio de Janeiro",
+        "end": "Pedra do Telégrafo, Rio de Janeiro"
+    },
+    {
+        "id": "2",
+        "name": "Dois Irmãos Hill",
+        "start": "Rua Carlos Duque, Rio de Janeiro",
+        "end": "Irmão Maior, Rio de Janeiro"
+    },
+    {
+        "id": "3",
+        "name": "Gavea Rock Trail",
+        "start": "Rua Itajuru, Rio de Janeiro",
+        "end": "Pedra da Gávea, Rio de Janeiro"
+    },
+    {
+        "id": "4",
+        "name": "Pedra Bonita Trail",
+        "start": "Rampa de Voo Livre, São Conrado, Rio de Janeiro",
+        "end": "Pedra Bonita, Rio de Janeiro"
+    },
+    {
+        "id": "5",
+        "name": "Gabriela Waterfall Trail",
+        "start": "Restaurante Os Esquilos, Rio de Janeiro",
+        "end": "Cascata Gabriela, Rio de Janeiro"
+    },
+    {
+        "id": "6",
+        "name": "Urca Trail",
+        "start": "Pista Claudio Coutinho, Urca, Rio de Janeiro",
+        "end": "Morro da Urca, Rio de Janeiro"
+    }
+]
+
+
