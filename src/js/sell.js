@@ -1,9 +1,9 @@
-import { fetchProducts, products } from './products.js';
-import { addToCart, updateCartSummary, cart } from './cart.js';
-import { finalizePurchase } from './purchase.js';
+import { fetchProducts, products } from "./products.js";
+import { addToCart, updateCartSummary, cart } from "./cart.js";
+import { finalizePurchase } from "./purchase.js";
 
 // Inicializa os produtos ao carregar a página
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await fetchProducts();
 });
 

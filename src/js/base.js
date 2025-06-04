@@ -1,16 +1,16 @@
-const hamButton = document.querySelector('#menu');
-const navigation = document.querySelector('.comp_nav');
-const listaItens = document.querySelectorAll('.comp_nav_a');
+const hamButton = document.querySelector("#menu");
+const navigation = document.querySelector(".comp_nav");
+const listaItens = document.querySelectorAll(".comp_nav_a");
 
 
-hamButton.addEventListener('click', () => {
-	navigation.classList.toggle('open');
-	hamButton.classList.toggle('open');
+hamButton.addEventListener("click", () => {
+	navigation.classList.toggle("open");
+	hamButton.classList.toggle("open");
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     listaItens.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener("click", () => {
             tWayFinder(item)
         });
     });
@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function tWayFinder(item){
 	listaItens.forEach(elem => {
 		if (elem.textContent.trim() !== item.textContent.trim()) {
-			elem.classList.remove('active');
+			elem.classList.remove("active");
 		}
 		else{
-			elem.classList.add('active');
+			elem.classList.add("active");
 		}
 	})
 }
 
-fetch('./json/hiking-places.json')
+fetch("./json/hiking-places.json")
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,15 +35,15 @@ fetch('./json/hiking-places.json')
     return response.json();
   })
   .then(data => {
-    const cardsContainer = document.getElementById('cards-container');
+    const cardsContainer = document.getElementById("cards-container");
 
     // Create cards dynamically
     let i = 1;
     data.forEach(item => {
-      const card = document.createElement('article');
-      card.classList.add('card');
+      const card = document.createElement("article");
+      card.classList.add("card");
       card.classList.add(`card${i}`);
-      card.classList.add('image-container');
+      card.classList.add("image-container");
 
       card.innerHTML = `
         <h2>${item.name}</h2>
