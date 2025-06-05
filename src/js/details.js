@@ -29,7 +29,7 @@ async function loadData(p) {
 
   function equipmentPurchaseRent() {
     // URL da página de interesse
-    var url = "./sell.html";
+    var url = "../cart/sell.html";
     
     // Abre a URL no navegador
     window.open(url, "_blank");
@@ -38,7 +38,7 @@ async function loadData(p) {
 function schedule(){
   const select = document.getElementById("trailSelect");
   const p = select.value;
-  window.location.href = `schedule.html?number=${p}`;
+  window.location.href = `../schedule/schedule.html?number=${p}`;
 }
 
 function viewMap() {
