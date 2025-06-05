@@ -203,6 +203,6 @@ function loadMap(){
     loadSelectedTrail(dataTrail);
 }
 
-
+document.addEventListener("DOMContentLoaded", loadMap());
 
 window.loadMap = loadMap;
