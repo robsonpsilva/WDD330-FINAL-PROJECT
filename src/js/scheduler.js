@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			locationSelect.appendChild(option);
 		}
 		);
-		if (place !=0){
+		if (place != 0){
 			locationSelect.value = place;
 		}
 		

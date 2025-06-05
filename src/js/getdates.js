@@ -1,6 +1,5 @@
 
 let oLastModif = new Date(document.lastModified);
-const modification = document.querySelector("#modification");
 const currentyear = document.querySelector("#currentyear");
 // use the date object
 const today = new Date();

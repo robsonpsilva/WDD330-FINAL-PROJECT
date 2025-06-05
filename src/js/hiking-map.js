@@ -35,19 +35,19 @@ async function loadTrailsData() {
 
 // --- Functions for the Tracks Combo Box ---
 
-// Fills the combo box with the tracks from the JSON
-async function populateTrailSelect(trailsData) {
-    const selectElement = document.getElementById("trailSelect");
-    selectElement.innerHTML = `<option value="">-- Select a track --</option>`; 
+// // Fills the combo box with the tracks from the JSON
+// async function populateTrailSelect(trailsData) {
+//     const selectElement = document.getElementById("trailSelect");
+//     selectElement.innerHTML = `<option value="">-- Select a track --</option>`; 
 
-    trailsData.forEach(trail => {
-        const option = document.createElement("option");
-        option.value = trail.id;       // The option's VALUE will now be the numeric ID
-        option.textContent = trail.name; // The visible TEXT will be the track name
-        selectElement.appendChild(option);
-    });
-    return trailsData;
-}
+//     trailsData.forEach(trail => {
+//         const option = document.createElement("option");
+//         option.value = trail.id;       // The option's VALUE will now be the numeric ID
+//         option.textContent = trail.name; // The visible TEXT will be the track name
+//         selectElement.appendChild(option);
+//     });
+//     return trailsData;
+// }
 
 // Load the selected track in the source and destination fields (now only internal) and search for the route
 async function loadSelectedTrail(trailsData) {
@@ -171,9 +171,9 @@ async function findRoute(startPointName, endPointName) {
 
             // Add start and end markers
             L.marker(leafletCoords[0]).addTo(map)
-                .bindPopup(`Partida: ${startPointName || trailName}`).openPopup(); // Use the location name
+                .bindPopup(`Partida: ${startPointName}`).openPopup(); // Use the location name
             L.marker(leafletCoords[leafletCoords.length - 1]).addTo(map)
-                .bindPopup(`Destination: ${endPointName || trailName}`).openPopup(); // Use the location name
+                .bindPopup(`Destination: ${endPointName}`).openPopup(); // Use the location name
 
             // Display the distance and estimated time (if available in the ORS response)
             const summary = data.features[0].properties.summary;
@@ -202,28 +202,6 @@ function loadMap(){
     loadSelectedTrail(dataTrail);
 }
 
-// --- Executes when the page loads ---
-document.addEventListener("DOMContentLoaded", () => {
-    loadTrailsData().then(trailsData => 
-        populateTrailSelect(trailsData)).then(trailsData=>{
-        dataTrail = trailsData;
-        const urlParams = new URLSearchParams(window.location.search);
-        const trailNameFromUrl = urlParams.get("trail");
-    
-        if (trailNameFromUrl) {
-            // If present, preselect in combo
-            const selectElement = document.getElementById("trailSelect");
-            // The select value must be the exact track name received in the URL
-            selectElement.value = trailNameFromUrl;
-            
-            // And then load the trail on the map
-            loadSelectedTrail(trailsData); 
 
-        } 
-    }).catch(error => {
-    console.error("Error loading trails:", error);
-    }
-    );
-});
 
 window.loadMap = loadMap;
