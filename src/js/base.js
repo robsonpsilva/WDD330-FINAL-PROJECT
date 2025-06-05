@@ -27,7 +27,7 @@ function tWayFinder(item){
 	})
 }
 
-fetch("./json/hiking-places.json")
+fetch("../json/hiking-places.json")
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -66,7 +66,7 @@ fetch("./json/hiking-places.json")
 
   function goToDetail(number) {
     // Redireciona para a página detail com o parâmetro na URL
-    window.location.href = `details.html?number=${encodeURIComponent(number)}`;
+    window.location.href = `../details/details.html?number=${encodeURIComponent(number)}`;
   }
 
   function goToJoin() {
