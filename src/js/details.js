@@ -32,7 +32,7 @@ async function loadData(p) {
     var url = "../cart/sell.html";
     
     // Abre a URL no navegador
-    window.open(url, "_blank");
+    window.location.href = url;
 }
 
 function schedule(){
