@@ -199,6 +199,7 @@ async function findRoute(startPointName, endPointName) {
 }
 
 function loadMap(){
+    dataTrail = loadTrailsData();
     loadSelectedTrail(dataTrail);
 }
 
