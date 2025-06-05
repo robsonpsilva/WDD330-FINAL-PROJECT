@@ -14,6 +14,7 @@ export default defineConfig({
         join: resolve(__dirname, "src/join/join.html"),
         sell: resolve(__dirname, "src/cart/sell.html"),
         schedule: resolve(__dirname, "src/schedule/schedule.html"), 
+        hikingmap: resolve(__dirname,"src/hiking-map/hiking-map.html"),
         base: "src/js/base.js",
         cart: "src/js/cart.js",
         hiking: "src/js/hiking-map.js",
