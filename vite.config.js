@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import { products } from "./src/js/products";
+
 
 export default defineConfig({
   root: "src/",
