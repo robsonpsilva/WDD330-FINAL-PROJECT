@@ -9,4 +9,5 @@ currentyear.innerHTML = `<span>${today.getFullYear()}</span>`;
 let date = oLastModif.toLocaleDateString();
 let hour = oLastModif.toLocaleTimeString();
 
+const lastModified = document.getElementById("lastModified");
 lastModified.textContent = "Last modification: " + date + " " +  hour;

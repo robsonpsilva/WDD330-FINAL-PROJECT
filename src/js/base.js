@@ -74,3 +74,6 @@ fetch("./json/hiking-places.json")
     window.location.href = `../join/join.html`;
   }
 
+
+  window.goToJoin = goToJoin;
+  window.goToDetail = goToDetail;
