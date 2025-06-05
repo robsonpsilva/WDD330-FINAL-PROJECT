@@ -126,35 +126,7 @@ async function findRoute(startPointName, endPointName) {
             }
         }
 
-        // If start or end coords are still null, try to find the route by trail name
-        if ((!startCoords || !endCoords) && trailName) {
-            const allTrails = await loadTrailsData(); // Reload data if not already available
-            const trailByName = allTrails.find(trail => trail.name === trailName);
-
-            if (trailByName && trailByName.start && trailByName.end) {
-                try {
-                    startCoords = await getCoordinates(trailByName.start);
-                    endCoords = await getCoordinates(trailByName.end);
-                } catch (error) {
-                    console.error(`Error fetching coordinates for trail "${trailName}" by its internal start/end points: ${error.message}`);
-                    // Fallback to searching the trail name itself
-                    try {
-                        startCoords = await getCoordinates(`${trailName} start`);
-                        endCoords = await getCoordinates(`${trailName} end`);
-                    } catch (error) {
-                        throw new Error(`Could not get coordinates for trail "${trailName}" or its start/end points.`);
-                    }
-                }
-            } else {
-                // If trailByName doesn't have start/end, try searching the trail name directly
-                try {
-                    startCoords = await getCoordinates(`${trailName} start`);
-                    endCoords = await getCoordinates(`${trailName} end`);
-                } catch (error) {
-                    throw new Error(`Could not get coordinates for trail "${trailName}".`);
-                }
-            }
-        }
+        
 
         if (!startCoords || !endCoords) {
             throw new Error("Could not get coordinates for one or both locations after attempting by points and trail name.");
