@@ -21,8 +21,8 @@ let routeLayer = null; // To store the route layer
 
 async function loadTrailsData() {
     try {
-        data = [];
-        const response = await fetch('../json/hiking-map.json');
+        let data = [];
+        const response = await fetch(`../json/hiking-map.json`);
         if (!response.ok) {
             throw new Error(`Failed to load JSON: ${response.statusText}`);
         }
@@ -40,7 +40,7 @@ async function loadTrailsData() {
 // Fills the combo box with the tracks from the JSON
 async function populateTrailSelect(trailsData) {
     const selectElement = document.getElementById("trailSelect");
-    selectElement.innerHTML = '<option value="">-- Select a track --</option>'; 
+    selectElement.innerHTML = `<option value="">-- Select a track --</option>`; 
 
     trailsData.forEach(trail => {
         const option = document.createElement("option");
