@@ -1,5 +1,6 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import { products } from "./src/js/products";
 
 export default defineConfig({
   root: "src/",
@@ -12,7 +13,14 @@ export default defineConfig({
         details: resolve(__dirname, "src/details/details.html"),
         join: resolve(__dirname, "src/join/join.html"),
         sell: resolve(__dirname, "src/cart/sell.html"),
-        schedule: resolve(__dirname, "src/schedule/schedule.html")
+        schedule: resolve(__dirname, "src/schedule/schedule.html"), 
+        base: "src/js/base.js",
+        cart: "src/js/cart.js",
+        hiking: "src/js/hiking-map.js",
+        products: "src/js/products.js",
+        purchase: "src/js/purchase.js",
+        scheduler: "src/js/scheduler.js",
+        thanks: "src/js/thanks.js"
       },
     },
   },
