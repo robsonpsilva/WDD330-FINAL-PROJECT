@@ -2,20 +2,20 @@ export let products = []; // Exporta a lista de produtos
 
 export async function fetchProducts() {
   try {
-    const response = await fetch('../json/products.json');
+    const response = await fetch("../json/products.json");
     products = await response.json();
     displayProducts();
   } catch (error) {
     localStorage.setItem("Err", error);
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
   }
 }
 
 export function displayProducts() {
-  const productList = document.getElementById('product-list');
+  const productList = document.getElementById("product-list");
   products.forEach(product => {
-    const card = document.createElement('div');
-    card.className = 'card';
+    const card = document.createElement("div");
+    card.className = "card";
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}" loading="lazy">
       <h2>${product.name}</h2>

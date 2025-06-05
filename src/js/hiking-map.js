@@ -83,7 +83,29 @@ async function loadSelectedTrail(trailsData) {
     }
 }
 
+async function getCoordinates(placeName) {
+    const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
 
+    const response = await fetch(nominatimUrl, {
+        headers: {
+            "User-Agent": "MinhaAplicacaoDeHiking/1.0 (seu.email@exemplo.com)"
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`Error fetching coordinates for "${placeName}": ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data && data.length > 0) {
+        const lat = parseFloat(data[0].lat);
+        const lon = parseFloat(data[0].lon);
+        return [lon, lat]; // OpenRouteService expects [longitude, latitude]
+    } else {
+        throw new Error(`Location not found: ${placeName}`);
+    }
+}
 // --- Main logic to fetch the route (now with parameters) ---
 async function findRoute(startPointName, endPointName) {
     const errorMessageDiv = document.getElementById("errorMessage");
@@ -91,29 +113,7 @@ async function findRoute(startPointName, endPointName) {
 
     try {
         // Function to get coordinates using the Nominatim API
-        async function getCoordinates(placeName) {
-            const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
-
-            const response = await fetch(nominatimUrl, {
-                headers: {
-                    "User-Agent": "MinhaAplicacaoDeHiking/1.0 (seu.email@exemplo.com)"
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error fetching coordinates for "${placeName}": ${response.statusText}`);
-            }
-
-            const data = await response.json();
-
-            if (data && data.length > 0) {
-                const lat = parseFloat(data[0].lat);
-                const lon = parseFloat(data[0].lon);
-                return [lon, lat]; // OpenRouteService expects [longitude, latitude]
-            } else {
-                throw new Error(`Location not found: ${placeName}`);
-            }
-        }
+        
 
         let startCoords = null;
         let endCoords = null;

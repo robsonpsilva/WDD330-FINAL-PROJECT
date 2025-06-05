@@ -15,7 +15,7 @@ export function addToCart(productId, products) {
 }
 
 export function updateCartSummary() {
-  const cartSummary = document.getElementById('cart-summary');
+  const cartSummary = document.getElementById("cart-summary");
   cartSummary.innerHTML = `
     <table>
       <thead>
@@ -32,7 +32,7 @@ export function updateCartSummary() {
             <td>${item.quantity}</td>
             <td>$${(item.price * item.quantity).toFixed(2)}</td>
           </tr>
-        `).join('')}
+        `).join("")}
       </tbody>
     </table>
   `;
