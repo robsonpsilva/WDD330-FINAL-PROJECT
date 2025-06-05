@@ -1,30 +1,30 @@
-async function loadData(place) {
+async function loadData(p) {
     try {
-      const select = document.getElementById('trailSelect');
-      select.value = place;
-      const adjustedPlace = place - 1;
+      const select = document.getElementById("trailSelect");
+      select.value = p;
+      const adjustedPlace = p - 1;
 
-      const response = await fetch('../json/hiking-details.json'); // Caminho para o arquivo JSON
+      const response = await fetch("../json/hiking-details.json"); // Caminho para o arquivo JSON
       const trailInfo = await response.json();
       
       // Seleciona os primeiros dados do array
       const data = trailInfo[adjustedPlace];
 
       // Preenche os campos no HTML
-      document.getElementById('imageofplace').src = data.image;
-      document.getElementById('imageofplace').alt = `Image of ${data.name}`;
-      document.getElementById('type').textContent = data.type;
-      document.getElementById('region').textContent = data.region;
-      document.getElementById('duration').textContent = data.duration;
-     document.getElementById('detail').textContent = data.detail;
+      document.getElementById("imageofplace").src = data.image;
+      document.getElementById("imageofplace").alt = `Image of ${data.name}`;
+      document.getElementById("type").textContent = data.type;
+      document.getElementById("region").textContent = data.region;
+      document.getElementById("duration").textContent = data.duration;
+     document.getElementById("detail").textContent = data.detail;
     } catch (error) {
       localStorage.setItem("Err", error);
     }
   }
   function  updateTrailDetails() {
-    const select = document.getElementById('trailSelect');
-    const place = select.value;
-    loadData(place);
+    const select = document.getElementById("trailSelect");
+    const p = select.value;
+    loadData(p);
   }
 
   function equipmentPurchaseRent() {
@@ -32,13 +32,13 @@ async function loadData(place) {
     var url = "./sell.html";
     
     // Abre a URL no navegador
-    window.open(url, '_blank');
+    window.open(url, "_blank");
 }
 
 function schedule(){
-  const select = document.getElementById('trailSelect');
-  const place = select.value;
-  window.location.href = `schedule.html?number=${place}`;
+  const select = document.getElementById("trailSelect");
+  const p = select.value;
+  window.location.href = `schedule.html?number=${p}`;
 }
 
 function viewMap() {
@@ -58,3 +58,8 @@ function viewMap() {
   const params = new URLSearchParams(window.location.search);
   const place = params.get("number")
   window.onload = loadData(place);
+
+  window.updateTrailDetails = updateTrailDetails;
+  window.equipmentPurchaseRent = equipmentPurchaseRent;
+  window.viewMap = viewMap;
+  window.schedule = schedule;
