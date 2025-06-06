@@ -5,7 +5,7 @@ const map = L.map("map").setView([-22.951912, -43.210487], 13);
 
 let dataTrail;
 
-// Adiciona a camada de tiles do OpenStreetMap
+// Adds OpenStreetMap tiles layer.
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
@@ -16,7 +16,7 @@ let routeLayer = null; // To store the route layer
 
 
 
-
+//Loads the track list from the data source.
 async function loadTrailsData() {
     try {
         let data = [];
@@ -198,11 +198,30 @@ async function findRoute(startPointName, endPointName) {
     }
 }
 
+function MapFirstLoad(){
+    
+    loadTrailsData()
+    .then(trailsData=> populateTrailSelect(trailsData)).
+    then((trailsData) => 
+        {
+            const urlParams = new URLSearchParams(window.location.search); 
+            const trailId = urlParams.get('trail');
+            const selectElement = document.getElementById("trailSelect");
+
+            selectElement.value = trailId;
+            dataTrail = trailsData;
+            return trailsData;
+        }
+    ).
+    then(
+        trailsData => loadSelectedTrail(trailsData));
+}
+
 function loadMap(){
-    dataTrail = loadTrailsData();
     loadSelectedTrail(dataTrail);
 }
 
-document.addEventListener("DOMContentLoaded", loadMap());
+document.addEventListener("DOMContentLoaded", MapFirstLoad());
 
+window.MapFirstLoad = MapFirstLoad;
 window.loadMap = loadMap;
