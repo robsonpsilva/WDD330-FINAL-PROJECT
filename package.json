@@ -34,6 +34,7 @@
     "last 3 safari versions"
   ],
   "dependencies": {
+    "dotenv": "^16.5.0",
     "lint": "^1.1.2",
     "pretier": "^0.0.1"
   }
