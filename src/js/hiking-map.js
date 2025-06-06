@@ -1,7 +1,7 @@
 
-require("dotenv").config();
 
-const ORS_API_KEY = process.env.VITE_ORS_API_KEY; 
+
+const ORS_API_KEY = import.meta.env.VITE_ORS_API_KEY; 
 
 const map = L.map("map").setView([-22.951912, -43.210487], 13); 
 
