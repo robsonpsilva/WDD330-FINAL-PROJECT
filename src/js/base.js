@@ -1,12 +1,66 @@
+// No seu arquivo onde você lida com a autenticação (por exemplo, auth.js)
+
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut } from "firebase/auth";
+// Importe 'app' do seu arquivo de configuração (Passo 1)
+import { app } from "./utils.js"; // Ajuste o caminho conforme necessário
+
+// Obtém a instância do Firebase Authentication
+const auth = getAuth(app);
+
+// Cria uma instância do Provedor Google
+const provider = new GoogleAuthProvider();
+
+// Opcional: Adicionar scopes adicionais (se precisar acessar outros dados do Google,
+// como lista de contatos - lembre-se de solicitar apenas o necessário!)
+// provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+// Opcional: Localizar o fluxo de autenticação para a língua do usuário
+// auth.languageCode = 'it'; // Exemplo: Italiano
+// auth.useDeviceLanguage(); // Usar a preferência de idioma do navegador
+
+
+
 const hamButton = document.querySelector("#menu");
 const navigation = document.querySelector(".comp_nav");
 const listaItens = document.querySelectorAll(".comp_nav_a");
 
 
+const navLinks = document.querySelectorAll('.comp_nav_a');
+
+const loginBtn = document.getElementById('google-login-btn');
+
+
+
+
+  
+loginBtn.addEventListener('click', () => {
+    signInWithRedirect(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      alert(`Status: Conectado como ${user.displayName || user.email}`);
+      overlay.style.display = 'none';
+      toggleLinks(true);
+      })
+    .catch(() => {
+      alert('Erro ao fazer login. Tente novamente.');
+    });
+  });
+
 hamButton.addEventListener("click", () => {
 	navigation.classList.toggle("open");
 	hamButton.classList.toggle("open");
 });
+
+
+
+function closeMessage() {
+  const overlay = document.getElementById('overlay');
+  const messageBox = document.getElementById('message-box');
+
+  if (overlay) overlay.style.display = 'none';
+   if (messageBox) messageBox.style.display = 'none';
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     listaItens.forEach(item => {
@@ -14,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
             tWayFinder(item)
         });
     });
+    const overlay = document.querySelector('.overlay');  
+    overlay.style.display = 'flex'; 
 });
 
 function tWayFinder(item){
@@ -75,5 +131,8 @@ fetch("../json/hiking-places.json")
   }
 
 
+
+
   window.goToJoin = goToJoin;
   window.goToDetail = goToDetail;
+  window.closeMessage = closeMessage;
