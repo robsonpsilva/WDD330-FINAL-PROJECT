@@ -36,9 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             tWayFinder(item)
         })
       });
-      if (localStorage.getItem("logedIn") == null){
-        window.location.href = "./login/login.html";
-      }
     });
 
 function tWayFinder(item){

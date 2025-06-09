@@ -1,13 +1,13 @@
 // No seu arquivo onde você lida com a autenticação (auth.js)
 
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { app } from './firebase-config'; // Ajuste o caminho conforme necessário
+import { app } from './utils.js'; // Ajuste o caminho conforme necessário
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const signInButton = document.getElementById('signInWithGoogle');
-const authStatusDiv = document.getElementById('authStatus');
+const signInButton = document.getElementById("google-login-btn");
+const authStatusDiv = document.getElementById("authStatus");
 
 if (signInButton) {
   signInButton.addEventListener('click', () => {
@@ -54,7 +54,28 @@ if (signInButton) {
   });
 }
 
+function showMessage() {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'flex'; // Torna a overlay visível e usa flex para centralizar
+    // Adiciona uma pequena espera para a transição CSS (opcional, para melhor UX)
+    setTimeout(() => {
+        overlay.classList.add('show');
+    }, 10);
+}
 
+// Função para esconder a overlay
+function closeMessage() {
+    const overlay = document.getElementById('overlay');
+    overlay.classList.remove('show'); // Remove a classe para a animação de saída
+    // Espera a animação CSS terminar antes de esconder totalmente o display
+    setTimeout(() => {
+        overlay.style.display = 'none'; // Esconde a overlay
+    }, 300); // Deve ser igual ou maior que a duração da transição (0.3s)
+}
+
+document.addEventListener("DOMContentLoaded",showMessage());
+
+window.closeMessage = closeMessage;
 
 // Opcional: Adicionar scopes adicionais (se precisar acessar outros dados do Google,
 // como lista de contatos - lembre-se de solicitar apenas o necessário!)
