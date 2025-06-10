@@ -48,7 +48,7 @@ transition: transform 0.3s;
 }
 
 .overlay {
-    display: none; /* Inicialmente escondido */
+    display: flex; /* Inicialmente escondido */
     position: fixed; /* Fica fixo na tela */
     top: 0;
     left: 0;
@@ -58,14 +58,30 @@ transition: transform 0.3s;
     justify-content: center;
     align-items: center;
     z-index: 1000; /* Garante que fique acima de outros elementos */
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Impede cliques quando invisível */
+    visibility: hidden;
+}
+.overlay.hidden .message-box {
+    transform: translateY(-50px); /* Move para cima ao sair */
+    opacity: 0; /* Fica transparente */
 }
 
 .message-box {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 40px; /* Aumente o padding para melhor visual */
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
     text-align: center;
+    max-width: 450px; /* Limita a largura */
+    width: 90%; /* Responsividade */
+    /* Adicione transições para o message-box também para uma entrada/saída animada */
+    transform: translateY(0); /* Posição inicial */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .message-box p {
@@ -90,6 +106,53 @@ transition: transform 0.3s;
     background-color: var(--standard-blue);
     color: var(--standard-white);
     font-size: var(--mediu-font);
+}
+
+/* --- User Info Header (As informações do usuário à direita) --- */
+.user-info-header {
+    display: flex; /* Transforma a div de info do usuário em um container flex */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre o nome e a foto */
+    margin-left: auto; /* Empurra este item para a direita máxima, após o botão de menu */
+    width: 60px;
+}
+
+.user-name-display {
+    text-align: center;
+    font-size: smaller;
+    font-weight: bold;
+    color: white;
+}
+
+.user-photo-display {
+    width: 25px; /* Tamanho da foto do usuário no header */
+    height: 25px;
+    border-radius: 50%; /* Deixa a foto redonda */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border: 2px solid #a0a0a0; /* Borda sutil para a foto */
+}
+
+.logout-link {
+    text-align: center;
+    width: 50px;
+    display: inline-block; /* Permite aplicar padding, margin, etc. */
+    background-color: #dc3545; /* Cor vermelha para logout */
+    color: white;
+    text-decoration: none; /* Remove sublinhado padrão do link */
+    border-radius: 5px;
+    font-size: smaller;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-bottom: 5px;
+}
+
+.logout-link:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.logout-link:active {
+    transform: translateY(0);
 }
 
 @media (min-width: 300px) and (max-width: 640px) {

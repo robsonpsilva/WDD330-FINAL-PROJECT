@@ -11,12 +11,14 @@
     <link rel="icon" href="./images/favicon.ico">
 
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/large.css">
+    <link rel="stylesheet" href="./css/index.css">
     
-
-    <script src="./js/base.js" type="module"></script>
-    <script src="./js/getdates.js" type = "module"></script>
+    <script src="../js/base.js" type="module"></script>
+    <script src="../js/getdates.js" type = "module"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="../js/login.js" type="module" defer></script>
+    
 
    
 </head>
@@ -41,6 +43,11 @@
             </div>
         </div>
         <button id="menu" aria-label="Menu Button"></button>
+        <div id="user-info-header" class="user-info-header">
+            <img id="userPhotoDisplay" src="" alt="Foto do Usuário" class="user-photo-display">
+            <span id="userNameDisplay" class="user-name-display"></span>
+            <a id="logoutLink" href="#" class="logout-link"> Logout </a>
+        </div>
     </header>
     <nav class="comp_nav">
         <a href="./home.html" class="comp_nav_a active">Home</a>
@@ -60,15 +67,15 @@
             </div>
         </div>
 
-        <div id="overlay" class="overlay">
+        <div id="login-overlay" class="overlay hidden">
             <div id="message-box" class="message-box">
                 <h2>Login Necessário</h2>
                 <p>Faça login com sua conta Google para continuar.</p>
                 <button id="google-login-btn">Login com Google</button>
-                <button onclick="closeMessage()">Fechar</button>
+                <button id = "close-overlay-btn" onclick="closeMessage()">Close</button>
             </div>
         </div>
-
+        
 
     </main>
     <footer id = "footer-section" class="footer-section" >

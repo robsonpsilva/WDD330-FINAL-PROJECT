@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/large.css">
     <!-- Initializing firebase in my application  -->
-    <script src="./js/utils.js"></script> 
     
-    <script src="../js/login.js" type="module"></script>
     <script src="../js/getdates.js" type = "module"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="../js/login.js" type="module" defer></script>
 
    
 </head>
@@ -26,14 +27,14 @@
         <div id = "header-title-image" class="header-title-image">
             <img
                 srcset="
-                    ../images/rio_75x75.webp 75w,
-                    ../images/rio_100x100.webp 100w,
-                    ../images/rio_120x120.webp 120w
+                    ./images/rio_75x75.webp 75w,
+                    ./images/rio_100x100.webp 100w,
+                    ./images/rio_120x120.webp 120w
                 "
                 sizes="(max-width: 480px) 75px,
                             (max-width: 800px) 100px,
                             120px"
-                src="../images/rio_75x75.webp"
+                src="./images/rio_75x75.webp"
                 alt="Rio de Janeiro Hiking Logo">
 
             <div id="business_name" class="business_name">
@@ -41,8 +42,22 @@
                 <span id="small_text">Hiking Company</span>
             </div>
         </div>
+        <button id="menu" aria-label="Menu Button"></button>
+        
+        <div id="user-info-header" class="user-info-header">
+            <img id="userPhotoDisplay" src="" alt="Foto do Usuário" class="user-photo-display">
+            <span id="userNameDisplay" class="user-name-display"></span>
+            <a id="logoutLink" href="#" class="logout-link"> Logout </a>
+        </div>
+
     </header>
-    
+    <nav class="comp_nav">
+        <a href="./home.html" class="comp_nav_a active">Home</a>
+        <a href="./details/details.html?number=1" class="comp_nav_a">Details</a>
+        <a href="./cart/sell.html" class="comp_nav_a" target="_self">Buy</a>
+        <a href="./join/join.html" class="comp_nav_a" target="_self">Join Us</a>
+        <a href="./schedule/schedule.html?number=0" class="comp_nav_a" target="_self">Schedule</a>
+    </nav>
     <main>
         <div class="hero">
         </div>
@@ -51,14 +66,20 @@
       
             </div>
         </div>
-        <div id="overlay" class="overlay">
+        <!-- <div id="login-overlay" class="overlay">
             <div id="message-box" class="message-box">
-                <h2>Login Necessário</h2>
-                <p>Faça login com sua conta Google para continuar.</p>
-                <button id="google-login-btn">Login com Google</button>
-                <button onclick="closeMessage()">Fechar</button>
+                <h2>Login required.</h2>
+                <p>Sign in with your Google account to continue.</p>
+                <button id="google-login-btn">Login with Google</button>
+                <button id = "close-overlay-btn" onclick="closeMessage()">Close</button>
             </div>
-        </div>
+        </div> -->
+        <div id="message-box" class="message-box">
+                <h2>Login required.</h2>
+                <p>Sign in with your Google account to continue.</p>
+                <button id="google-login-btn">Login with Google</button>
+                <button id = "close-overlay-btn" onclick="closeMessage()">Close</button>
+            </div>
     </main>
     <footer id = "footer-section" class="footer-section" >
         <div class="footer-container">

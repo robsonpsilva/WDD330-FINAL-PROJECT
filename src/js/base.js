@@ -1,24 +1,4 @@
 
-import { getAuth, getRedirectResult } from "firebase/auth";
-
-const auth = getAuth();
-
-getRedirectResult(auth)
-  .then((result) => {
-    if (result && result.user) {
-      // Login bem-sucedido
-      alert("Login realizado com sucesso!");
-    } else {
-      // Nenhum resultado — talvez o usuário tenha cancelado
-      window.location.href = "erro.html";
-    }
-  })
-  .catch((error) => {
-    console.error("Erro no login:", error);
-    window.location.href = "erro.html";
-  });
-
-
 const hamButton = document.querySelector("#menu");
 const navigation = document.querySelector(".comp_nav");
 const listaItens = document.querySelectorAll(".comp_nav_a");
