@@ -116,6 +116,7 @@ transition: transform 0.3s;
     gap: 10px; /* Espaçamento entre o nome e a foto */
     margin-left: auto; /* Empurra este item para a direita máxima, após o botão de menu */
     width: 60px;
+    padding: 5px;
 }
 
 .user-name-display {
@@ -135,10 +136,9 @@ transition: transform 0.3s;
 
 .logout-link {
     text-align: center;
-    width: 50px;
+   
     display: inline-block; /* Permite aplicar padding, margin, etc. */
-    background-color: #dc3545; /* Cor vermelha para logout */
-    color: white;
+    
     text-decoration: none; /* Remove sublinhado padrão do link */
     border-radius: 5px;
     font-size: smaller;
@@ -154,6 +154,8 @@ transition: transform 0.3s;
 .logout-link:active {
     transform: translateY(0);
 }
+
+
 
 @media (min-width: 300px) and (max-width: 640px) {
     .cards {

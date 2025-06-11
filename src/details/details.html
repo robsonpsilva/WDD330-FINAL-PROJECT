@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/large.css">
     <link rel="stylesheet" href="../css/details.css">
-    
+    <link rel="stylesheet" href="../css/index.css">
 
     <script src="../js/base.js" type="module"></script>
     <script src="../js/getdates.js" type="module"></script>
     <script src="../js/details.js" type="module"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="../js/login.js" type="module" defer></script>
 
-  
-
-</head>
+ </head>
 <body>
     <header id = "header-container" class = "header-container">
         <div id = "header-title-image" class="header-title-image">
@@ -43,6 +43,11 @@
             </div>
         </div>
         <button id="menu" aria-label="Menu Button"></button>
+        <div id="user-info-header" class="user-info-header">
+            <img id="userPhotoDisplay" src="" alt="Foto do Usuário" class="user-photo-display">
+            <span id="userNameDisplay" class="user-name-display"></span>
+            
+        </div>
     </header>
     <nav class="comp_nav">
         <a href="../home.html" class="comp_nav_a">Home</a>
@@ -50,6 +55,7 @@
         <a href="../cart/sell.html" class="comp_nav_a" target="_self">Buy</a>
         <a href="../join/join.html" class="comp_nav_a" target="_self">Join Us</a>
         <a href="../schedule/schedule.html?number=0" class="comp_nav_a" target="_self">Schedule</a>
+        <a href="#" id="logoutLink" class="comp_nav_a" target="_self">Logout</a>
     </nav>
     <main>
         <div class="hero">

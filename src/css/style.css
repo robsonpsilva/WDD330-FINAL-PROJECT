@@ -1,0 +1,112 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.auth-form {
+    margin-bottom: 20px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+button {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#btn-google-login {
+    background-color: #dd4b39; /* Cor do Google */
+}
+
+#btn-google-login:hover {
+    background-color: #c23321;
+}
+
+#btn-reset-password {
+    background-color: #f39c12; /* Cor de alerta */
+}
+
+#btn-reset-password:hover {
+    background-color: #e67e22;
+}
+
+#btn-delete-account {
+    background-color: #e74c3c; /* Cor de perigo */
+}
+
+#btn-delete-account:hover {
+    background-color: #c0392b;
+}
+
+.toggle-link {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.toggle-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.toggle-link a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#dashboard-section p {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+#user-email, #user-uid, #user-display-name, #firestore-data {
+    font-weight: bold;
+    color: #3498db;
+    word-break: break-all; /* Para quebrar textos longos como o UID */
+}

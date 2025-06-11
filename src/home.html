@@ -46,7 +46,6 @@
         <div id="user-info-header" class="user-info-header">
             <img id="userPhotoDisplay" src="" alt="Foto do Usuário" class="user-photo-display">
             <span id="userNameDisplay" class="user-name-display"></span>
-            <a id="logoutLink" href="#" class="logout-link"> Logout </a>
         </div>
     </header>
     <nav class="comp_nav">
@@ -55,6 +54,7 @@
         <a href="./cart/sell.html" class="comp_nav_a" target="_self">Buy</a>
         <a href="./join/join.html" class="comp_nav_a" target="_self">Join Us</a>
         <a href="./schedule/schedule.html?number=0" class="comp_nav_a" target="_self">Schedule</a>
+        <a href="#" id="logoutLink" class="comp_nav_a" target="_self">Logout</a>
     </nav>
     <main>
         <div class="hero">
@@ -66,17 +66,6 @@
       
             </div>
         </div>
-
-        <div id="login-overlay" class="overlay hidden">
-            <div id="message-box" class="message-box">
-                <h2>Login Necessário</h2>
-                <p>Faça login com sua conta Google para continuar.</p>
-                <button id="google-login-btn">Login com Google</button>
-                <button id = "close-overlay-btn" onclick="closeMessage()">Close</button>
-            </div>
-        </div>
-        
-
     </main>
     <footer id = "footer-section" class="footer-section" >
         <div class="footer-container">

@@ -65,6 +65,7 @@ export async function signOutUser() {
   try {
     await signOut(auth);
     console.log("Logout bem-sucedido.");
+    window.location.href = "../index.html";
     // onAuthStateChanged irá detectar a mudança e atualizar a UI
   } catch (error) {
     console.error("Erro no logout:", error.code, error.message);
