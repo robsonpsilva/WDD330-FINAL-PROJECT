@@ -1,6 +1,6 @@
 
 
-import { signOutUser, onAuthStateChanged } from './firebase/auth-service.js';
+import { signOutUser, onAuthStateChanged } from "./firebase/auth-service.js";
 
 
 //const appContent = document.getElementById("app-content");
@@ -10,28 +10,26 @@ const logoutLink = document.getElementById("logoutLink");
 
 
 
-
-// 2. Observar o estado de autenticação (Firebase)
-// Esta função é chamada SEMPRE que o estado de login muda (login, logout, token refresh, etc.)
+// 2. Observe the authentication state (Firebase)
+// This function is called EVERY TIME the login state changes (login, logout, token refresh, etc.)
 onAuthStateChanged(user => {
     if (user) {
         // Usuário logado
-        console.log("Usuário logado:", user);
-        userNameDisplay.textContent = user.displayName || 'Usuário';
+        userNameDisplay.textContent = user.displayName || "User";
         if (user.photoURL) {
             userPhotoDisplay.src = user.photoURL;
-            userPhotoDisplay.style.display = 'inline-block';
+            userPhotoDisplay.style.display = "inline-block";
         } else {
-            userPhotoDisplay.style.display = 'none';
+            userPhotoDisplay.style.display = "none";
         }
 
     } else {
         // Usuário deslogado
-        console.log("Usuário deslogado.");
+        console.log("User Logged Out.");
     }
 });
 
-logoutLink.addEventListener('click', () => {
+logoutLink.addEventListener("click", () => {
     signOutUser();
     
 });

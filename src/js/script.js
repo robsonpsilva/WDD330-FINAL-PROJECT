@@ -18,121 +18,133 @@ const auth = firebase.auth();
 const db = firebase.firestore(); // Opcional: para salvar/recuperar dados do usuário
 
 // Referências aos elementos HTML
-const authSection = document.getElementById('auth-section');
-const registerForm = document.getElementById('register-form');
-const loginForm = document.getElementById('login-form');
-const dashboardSection = document.getElementById('dashboard-section');
+const authSection = document.getElementById("auth-section");
+const registerForm = document.getElementById("register-form");
+const loginForm = document.getElementById("login-form");
+const dashboardSection = document.getElementById("dashboard-section");
 
-const registerEmailInput = document.getElementById('register-email');
-const registerPasswordInput = document.getElementById('register-password');
-const btnRegister = document.getElementById('btn-register');
+const registerEmailInput = document.getElementById("register-email");
+const registerPasswordInput = document.getElementById("register-password");
+const btnRegister = document.getElementById("btn-register");
 
-const loginEmailInput = document.getElementById('login-email');
-const loginPasswordInput = document.getElementById('login-password');
-const btnLogin = document.getElementById('btn-login');
-const btnGoogleLogin = document.getElementById('btn-google-login');
-const btnResetPassword = document.getElementById('btn-reset-password');
+const loginEmailInput = document.getElementById("login-email");
+const loginPasswordInput = document.getElementById("login-password");
+const btnLogin = document.getElementById("btn-login");
+const btnGoogleLogin = document.getElementById("btn-google-login");
+const btnResetPassword = document.getElementById("btn-reset-password");
 
-const btnLogout = document.getElementById('btn-logout');
-const btnDeleteAccount = document.getElementById('btn-delete-account');
+const btnLogout = document.getElementById("btn-logout");
+const btnDeleteAccount = document.getElementById("btn-delete-account");
 
-const userEmailSpan = document.getElementById('user-email');
-const userUidSpan = document.getElementById('user-uid');
-const userDisplayNameSpan = document.getElementById('user-display-name');
+const userEmailSpan = document.getElementById("user-email");
+const userUidSpan = document.getElementById("user-uid");
+const userDisplayNameSpan = document.getElementById("user-display-name");
 
-const showLoginLink = document.getElementById('show-login');
-const showRegisterLink = document.getElementById('show-register');
+const showLoginLink = document.getElementById("show-login");
+const showRegisterLink = document.getElementById("show-register");
 
+const customAlertModal = document.getElementById('custom-alert-modal');
+const customAlertMessage = document.getElementById('custom-alert-message');
+const customAlertOkButton = document.getElementById('custom-alert-ok-button');
+
+function showCustomAlert(message) {
+    customAlertMessage.textContent = message;
+    customAlertModal.classList.remove('hidden'); // Exibe a modal
+}
+if (customAlertOkButton) {
+    customAlertOkButton.addEventListener('click', () => {
+        customAlertModal.classList.add('hidden'); // Esconde a modal
+    });
+}
 
 // --- Funções de UI ---
 function showDashboard(user) {
-    authSection.classList.add('hidden');
-    dashboardSection.classList.remove('hidden');
-    userEmailSpan.textContent = user.email || 'N/A';
+    authSection.classList.add("hidden");
+    dashboardSection.classList.remove("hidden");
+    userEmailSpan.textContent = user.email || "N/A";
     userUidSpan.textContent = user.uid;
-    userDisplayNameSpan.textContent = user.displayName || 'Não definido';
+    userDisplayNameSpan.textContent = user.displayName || "Not defined";
 
     window.location.href = "./home.html";
     
 }
 
 function showAuthForms() {
-    authSection.classList.remove('hidden');
-    dashboardSection.classList.add('hidden');
-    loginForm.classList.remove('hidden'); // Volta para o login por padrão
-    registerForm.classList.add('hidden');
-    userEmailSpan.textContent = '';
-    userUidSpan.textContent = '';
-    userDisplayNameSpan.textContent = '';
+    authSection.classList.remove("hidden");
+    dashboardSection.classList.add("hidden");
+    loginForm.classList.remove("hidden"); // Volta para o login por padrão
+    registerForm.classList.add("hidden");
+    userEmailSpan.textContent = "";
+    userUidSpan.textContent = "";
+    userDisplayNameSpan.textContent = "";
 }
 
-showLoginLink.addEventListener('click', (e) => {
+showLoginLink.addEventListener("click", (e) => {
     e.preventDefault();
-    loginForm.classList.remove('hidden');
-    registerForm.classList.add('hidden');
+    loginForm.classList.remove("hidden");
+    registerForm.classList.add("hidden");
 });
 
-showRegisterLink.addEventListener('click', (e) => {
+showRegisterLink.addEventListener("click", (e) => {
     e.preventDefault();
-    registerForm.classList.remove('hidden');
-    loginForm.classList.add('hidden');
+    registerForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
 });
 
 
 // --- Funções de Autenticação ---
 
 // Registrar novo usuário com Email/Senha
-btnRegister.addEventListener('click', async () => {
+btnRegister.addEventListener("click", async () => {
     const email = registerEmailInput.value;
     const password = registerPasswordInput.value;
 
     if (!email || !password) {
-        alert('Por favor, preencha email e senha para registrar.');
+        showCustomAlert("Please fill in email and password to register.");
         return;
     }
 
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
-        alert(`Usuário ${user.email} registrado com sucesso!`);
+        showCustomAlert(`User ${user.email} registered successfully!`);
 
         // Opcional: Salvar alguns dados básicos no Firestore após o registro
-        await db.collection('users').doc(user.uid).set({
+        await db.collection("users").doc(user.uid).set({
             email: user.email,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        console.log("Dados do usuário salvos no Firestore.");
+        
 
         // `onAuthStateChanged` vai lidar com a exibição do dashboard
     } catch (error) {
-        console.error("Erro ao registrar:", error.code, error.message);
-        alert(`Erro ao registrar: ${error.message}`);
+        
+        showCustomAlert(`Error registering: ${error.message}`);
     }
 });
 
 // Login com Email/Senha
-btnLogin.addEventListener('click', async () => {
+btnLogin.addEventListener("click", async () => {
     const email = loginEmailInput.value;
     const password = loginPasswordInput.value;
 
     if (!email || !password) {
-        alert('Por favor, preencha email e senha para fazer login.');
+        showCustomAlert("Please fill in your email and password to login.");
         return;
     }
 
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
-        alert(`Usuário ${user.email} logado com sucesso!`);
+        showCustomAlert(`User ${user.email} logged in successfully!`);
         // `onAuthStateChanged` vai lidar com a exibição do dashboard
     } catch (error) {
-        console.error("Erro ao fazer login:", error.code, error.message);
-        alert(`Erro ao fazer login: ${error.message}`);
+        showCustomAlert(`Error logging in:: ${error.message}`);
     }
 });
 
 // Login com Google
-btnGoogleLogin.addEventListener('click', async () => {
+btnGoogleLogin.addEventListener("click", async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
         const result = await auth.signInWithPopup(provider);
@@ -140,7 +152,7 @@ btnGoogleLogin.addEventListener('click', async () => {
         
 
         // Opcional: Salvar dados do usuário Google no Firestore se for um novo usuário
-        const userDocRef = db.collection('users').doc(user.uid);
+        const userDocRef = db.collection("users").doc(user.uid);
         const doc = await userDocRef.get();
         if (!doc.exists) {
             await userDocRef.set({
@@ -150,54 +162,50 @@ btnGoogleLogin.addEventListener('click', async () => {
                 providerId: result.credential.providerId,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            console.log("Dados do usuário Google salvos no Firestore.");
         }
         // `onAuthStateChanged` vai lidar com a exibição do dashboard
     } catch (error) {
-        console.error("Erro ao fazer login com Google:", error.code, error.message);
-        alert(`Erro ao fazer login com Google: ${error.message}`);
+        showCustomAlert(`Error logging in with Google: ${error.message}`);
     }
 });
 
 // Esqueci a Senha
-btnResetPassword.addEventListener('click', async () => {
+btnResetPassword.addEventListener("click", async () => {
     const email = loginEmailInput.value; // Pega o email do campo de login
     if (!email) {
-        alert('Por favor, digite seu email no campo de login para redefinir a senha.');
+        showCustomAlert("Please enter your email in the login field to reset your password.");
         return;
     }
 
     try {
         await auth.sendPasswordResetEmail(email);
-        alert(`Um email para redefinir a senha foi enviado para ${email}.`);
+        showCustomAlert(`An email to reset your password has been sent to ${email}.`);
     } catch (error) {
-        console.error("Erro ao redefinir senha:", error.code, error.message);
-        alert(`Erro ao redefinir senha: ${error.message}`);
+        showCustomAlert(`Error resetting password: ${error.message}`);
     }
 });
 
 
 // Sair (Logout)
-btnLogout.addEventListener('click', async () => {
+btnLogout.addEventListener("click", async () => {
     try {
         await auth.signOut();
-        alert('Sessão encerrada com sucesso!');
+        showCustomAlert("Session ended successfully!");
         // `onAuthStateChanged` vai lidar com a exibição dos formulários de autenticação
     } catch (error) {
-        console.error("Erro ao fazer logout:", error.code, error.message);
-        alert(`Erro ao fazer logout: ${error.message}`);
+        showCustomAlert(`Error logging out: ${error.message}`);
     }
 });
 
 // Excluir Conta
-btnDeleteAccount.addEventListener('click', async () => {
+btnDeleteAccount.addEventListener("click", async () => {
     const user = auth.currentUser;
     if (!user) {
-        alert('Nenhum usuário logado para excluir.');
+        showCustomAlert("No logged in users to delete.");
         return;
     }
 
-    if (confirm(`Tem certeza que deseja excluir a conta de ${user.email}? Esta ação é irreversível!`)) {
+    if (confirm(`Are you sure you want to delete the account? ${user.email}? This action is irreversible!`)) {
         try {
             // A reautenticação pode ser necessária se a última autenticação foi há muito tempo
             // Para simplicidade, não vamos reautenticar aqui, mas em produção, considere:
@@ -207,20 +215,19 @@ btnDeleteAccount.addEventListener('click', async () => {
             await user.delete();
 
             // Opcional: Remover dados do usuário do Firestore
-            await db.collection('users').doc(user.uid).delete().catch(e => {
-                console.warn("Erro ao deletar dados do Firestore, mas a conta foi excluída:", e);
+            await db.collection("users").doc(user.uid).delete().catch(e => {
+                console.warn("Error deleting data from Firestore, but account was deleted:", e);
             });
 
-            alert('Sua conta foi excluída com sucesso!');
+            showCustomAlert("Your account has been deleted successfully!");
             // `onAuthStateChanged` vai lidar com a exibição dos formulários de autenticação
         } catch (error) {
-            console.error("Erro ao excluir conta:", error.code, error.message);
-            if (error.code === 'auth/requires-recent-login') {
-                alert('Por segurança, por favor, faça login novamente para excluir sua conta. (Autentique-se mais recentemente)');
+            if (error.code === "auth/requires-recent-login") {
+                showCustomAlert("For security, please log in again to delete your account. (Log in more recently)");
                 // Você pode forçar o logout aqui e pedir para o usuário logar novamente
                 auth.signOut();
             } else {
-                alert(`Erro ao excluir conta: ${error.message}`);
+                showCustomAlert(`Error deleting account: ${error.message}`);
             }
         }
     }
@@ -232,11 +239,9 @@ btnDeleteAccount.addEventListener('click', async () => {
 auth.onAuthStateChanged(user => {
     if (user) {
         // Usuário está logado
-        console.log("Usuário logado:", user);
         showDashboard(user);
     } else {
         // Usuário não está logado
-        console.log("Nenhum usuário logado.");
         showAuthForms();
     }
 });

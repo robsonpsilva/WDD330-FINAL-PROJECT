@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticação Firebase</title>
+    <title>Rio de Janeiro Hiking Authentication</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> </head>
 <body>
     <div class="container">
-        <h1>Autenticação Firebase</h1>
+        <h1>Rio de Janeiro Hiking Authentication</h1>
 
         <div id="auth-section">
             <div class="auth-form" id="register-form">
-                <h2>Registrar</h2>
+                <h2>Register</h2>
                 <input type="email" id="register-email" placeholder="Email" required>
                 <input type="password" id="register-password" placeholder="Senha" required>
-                <button id="btn-register">Registrar</button>
-                <p class="toggle-link">Já tem uma conta? <a href="#" id="show-login">Faça login</a></p>
+                <button id="btn-register">Register</button>
+                <p class="toggle-link">Already have an account?<a href="#" id="show-login">FLog In</a></p>
             </div>
 
             <div class="auth-form hidden" id="login-form">
                 <h2>Login</h2>
                 <input type="email" id="login-email" placeholder="Email" required>
-                <input type="password" id="login-password" placeholder="Senha" required>
-                <button id="btn-login">Entrar</button>
-                <button id="btn-google-login">Entrar com Google</button>
-                <button id="btn-reset-password">Esqueci a Senha</button>
-                <p class="toggle-link">Não tem uma conta? <a href="#" id="show-register">Registre-se</a></p>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button id="btn-login">Log In</button>
+                <button id="btn-google-login">Log In Google</button>
+                <button id="btn-reset-password">Forgot Password</button>
+                <p class="toggle-link">Don't have an account? <a href="#" id="show-register">Register</a></p>
             </div>
         </div>
 
@@ -39,6 +39,13 @@
             <p>Nome: <span id="user-display-name"></span></p>
             <button id="btn-logout">Sair</button>
             <button id="btn-delete-account">Excluir Minha Conta</button>
+        </div>
+    </div>
+
+    <div id="custom-alert-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <p id="custom-alert-message"></p>
+            <button id="custom-alert-ok-button">OK</button>
         </div>
     </div>
 
