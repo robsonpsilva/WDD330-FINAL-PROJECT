@@ -218,3 +218,28 @@ img {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+.user-info-header {
+    display: flex; /* Transforma a div de info do usuário em um container flex */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre o nome e a foto */
+    margin-left: auto; /* Empurra este item para a direita máxima, após o botão de menu */
+    width: 60px;
+    padding: 5px;
+}
+
+.user-name-display {
+    text-align: center;
+    font-size: smaller;
+    font-weight: bold;
+    color: white;
+}
+
+.user-photo-display {
+    width: 25px; /* Tamanho da foto do usuário no header */
+    height: 25px;
+    border-radius: 50%; /* Deixa a foto redonda */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border: 2px solid #a0a0a0; /* Borda sutil para a foto */
+}
