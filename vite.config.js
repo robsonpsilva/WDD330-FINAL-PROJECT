@@ -24,7 +24,8 @@ export default defineConfig({
         scheduler: "src/js/scheduler.js",
         thanks: "src/js/thanks.js",
         loginjs: "src/js/login.js",
-        getdates: "src/js/getdates.js"
+        getdates: "src/js/getdates.js",
+        script: "src/js/script.js"
       },
     },
   },
