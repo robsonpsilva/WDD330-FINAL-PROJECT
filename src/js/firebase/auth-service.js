@@ -1,11 +1,11 @@
 // src/auth-service.js
 
 import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged as firebaseOnAuthStateChanged } from "firebase/auth";
-import { auth } from './firebase-config.js';
+import { auth } from "./firebase-config.js";
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-  prompt: 'select_account'
+  prompt: "select_account"
 });
 
 /**
