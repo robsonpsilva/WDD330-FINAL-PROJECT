@@ -4,7 +4,9 @@ async function loadData(p) {
       select.value = p;
       const adjustedPlace = p - 1;
 
-      const response = await fetch("../json/hiking-details.json"); // Caminho para o arquivo JSON
+      //const response = await fetch("../json/hiking-details.json"); // Caminho para o arquivo JSON
+      const response = await fetch("../netlify/functions/get-hiking-details");
+      console.log(response);
       const trailInfo = await response.json();
       
       // Seleciona os primeiros dados do array

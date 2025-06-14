@@ -1,17 +1,52 @@
 // netlify/functions/get-hiking-details.js
 
-import mongoose from "mongoose"; // Se você usar Mongoose
-import connectDB from "./connectDb.js"; // Importe a função de conexão
-const { MongoClient } = require("mongodb");
+const { MongoClient } = require("mongodb"); // Importa o cliente do driver nativo
+require("dotenv").config(); // Carrega as variáveis de ambiente (para desenvolvimento local)
 
-// Ou, se você preferir importar a URI diretamente se não tiver connectDB.js
-// require("dotenv").config(); // para desenvolvimento local
-// const MONGODB_URI = process.env.MONGODB_URI; 
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// Variável para armazenar o cliente MongoDB conectado, para reutilização entre invocações
+let cachedClient = null;
+let cachedDb = null; // Opcional: para armazenar o objeto 'db' também
+
+async function connectToDatabase() {
+  // Se já temos um cliente conectado, retornamos a conexão existente
+  // 'isConnected()' verifica se a conexão está ativa
+  if (cachedClient && cachedClient.topology && cachedClient.topology.isConnected()) {
+    console.log("=> Usando conexão MongoDB existente");
+    return { client: cachedClient, db: cachedDb };
+  }
+
+  // Se não houver cliente conectado, ou a conexão não estiver ativa, criamos uma nova
+  console.log("=> Criando nova conexão MongoDB");
+  try {
+    const client = new MongoClient(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // maxPoolSize: 10, // Opcional: Limita o número de conexões no pool
+      serverSelectionTimeoutMS: 5000, // Tempo limite para encontrar um servidor
+      socketTimeoutMS: 45000 // Tempo limite para operações de socket
+    });
+
+    await client.connect();
+    console.log("Conectado ao MongoDB Atlas!");
+
+    cachedClient = client;
+    cachedDb = client.db("riohiking"); // Armazena o objeto 'db' também para reutilização
+
+    return { client: cachedClient, db: cachedDb };
+
+  } catch (error) {
+    console.error("Erro na conexão ao MongoDB:", error);
+    // É importante lançar o erro para que o bloco `catch` principal da função `handler` o capture.
+    throw new Error(`Failed to connect to database: ${error.message}`);
+  }
+}
 
 export async function handler(event, context) {
-  // Configurações de CORS (necessário se o frontend estiver em um domínio diferente)
+  // Configurações de CORS
   const headers = {
-    "Access-Control-Allow-Origin": "*", // CUIDADO: Em produção, use o domínio exato do seu frontend
+    "Access-Control-Allow-Origin": "*", // Em produção, MUDAR para o domínio exato do seu frontend (ex: 'https://seusite.netlify.app')
     "Access-Control-Allow-Methods": "GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
@@ -30,45 +65,19 @@ export async function handler(event, context) {
     return {
       statusCode: 405,
       headers,
-      body: "Method Not Allowed",
+      body: "Method Not Allowed. Only GET is supported.",
     };
   }
 
   try {
-    // 1. Conectar ao MongoDB (usando sua função connectDB)
-    // Se connectDB usar Mongoose, a conexão será estabelecida globalmente após a primeira chamada.
-    // Se connectDB apenas retorna o client ou db, você precisará ajustar.
-    // Para simplificar, vou usar o driver nativo aqui, que é o que normalmente se faz em Serverless.
+    // Tenta conectar ou reutilizar a conexão existente
+    const { db } = await connectToDatabase();
     
-    // --- Usando o driver nativo do MongoDB ---
-    const uri = process.env.MONGODB_URI;
-    // Otimização: Reutilizar a conexão. A variável client precisa ser externa à função handler.
-    // Para um exemplo simples, podemos inicializá-la aqui. Em produção, use uma variável global persistente.
-    let client; 
-    try {
-      client = new MongoClient(uri);
-      await client.connect();
-    } catch (dbConnectError) {
-      console.error("Erro ao conectar ao MongoDB:", dbConnectError);
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ error: "Failed to connect to database.", details: dbConnectError.message }),
-      };
-    }
-    
-    const db = client.db("riohiking"); // Seu banco de dados
-    const collection = db.collection("hiking-details"); // Sua collection
-
-    // 2. Buscar os dados na collection
+    // Acessa a collection e busca os dados
+    const collection = db.collection("hiking-details");
     const hikingDetails = await collection.find({}).toArray();
 
-    // 3. Fechar a conexão (em serverless, o driver gerencia pools, mas um client.close() pode ser útil em cenários específicos)
-    // No entanto, para otimizar o cold start, muitas vezes não se fecha a conexão imediatamente
-    // para que ela possa ser reutilizada em invocações subsequentes na mesma instância Lambda.
-    // client.close(); // Comentar para reutilização em serverless, descomentar se tiver problemas.
-
-    // 4. Retornar os dados como JSON
+    // Retorna os dados como JSON
     return {
       statusCode: 200,
       headers: { ...headers, "Content-Type": "application/json" },
@@ -76,18 +85,17 @@ export async function handler(event, context) {
     };
 
   } catch (error) {
-    console.error("Erro na Netlify Function:", error);
+    console.error("Erro na Netlify Function (handler):", error);
+    // Retorna uma resposta de erro para o frontend
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: "Failed to fetch hiking details.", details: error.message }),
+      body: JSON.stringify({ 
+        error: "Erro interno do servidor ao buscar detalhes de trilhas.", 
+        details: error.message 
+      }),
     };
-  } finally {
-      // Recomenda-se fechar a conexão no finally se você não estiver reutilizando
-      // para evitar problemas de pool de conexões abertas, especialmente para writes.
-      // Para reads leves e reuso, pode-se deixar aberto.
-      // if (client) {
-      //   client.close();
-      // }
   }
+  // Não precisamos de um bloco `finally` para `client.close()` aqui
+  // pois estamos reutilizando a conexão para otimizar o desempenho em serverless.
 }
