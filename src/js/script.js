@@ -18,29 +18,29 @@ const auth = firebase.auth();
 const db = firebase.firestore(); // Opcional: para salvar/recuperar dados do usuário
 
 // Referências aos elementos HTML
-const authSection = document.getElementById("auth-section");
-const registerForm = document.getElementById("register-form");
+const authSection = document.getElementById("login-auth-section");
+const registerForm = document.getElementById("login-register-form");
 const loginForm = document.getElementById("login-form");
 const dashboardSection = document.getElementById("dashboard-section");
 
-const registerEmailInput = document.getElementById("register-email");
-const registerPasswordInput = document.getElementById("register-password");
-const btnRegister = document.getElementById("btn-register");
+const registerEmailInput = document.getElementById("login-register-email");
+const registerPasswordInput = document.getElementById("login-register-password");
+const btnRegister = document.getElementById("login-btn-register");
 
 const loginEmailInput = document.getElementById("login-email");
 const loginPasswordInput = document.getElementById("login-password");
 const btnLogin = document.getElementById("btn-login");
 const btnGoogleLogin = document.getElementById("btn-google-login");
-const btnResetPassword = document.getElementById("btn-reset-password");
+const btnResetPassword = document.getElementById("login-btn-reset-password");
 
 const btnLogout = document.getElementById("btn-logout");
 const btnDeleteAccount = document.getElementById("btn-delete-account");
 
-const userEmailSpan = document.getElementById("user-email");
-const userUidSpan = document.getElementById("user-uid");
-const userDisplayNameSpan = document.getElementById("user-display-name");
+const userEmailSpan = document.getElementById("login-user-email");
+const userUidSpan = document.getElementById("login-user-uid");
+const userDisplayNameSpan = document.getElementById("login-user-display-name");
 
-const showLoginLink = document.getElementById("show-login");
+const showLoginLink = document.getElementById("login-show");
 const showRegisterLink = document.getElementById("show-register");
 
 const customAlertModal = document.getElementById('custom-alert-modal');

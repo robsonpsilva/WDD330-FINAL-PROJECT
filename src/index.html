@@ -1,55 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content= "Login page of the Rio de Janeiro Hiking Company website. On this page the user can log in to the application, including Oauth login via Firebase.">
+    <meta name="author" content="Robson Paulo da Silva">
     <title>Rio de Janeiro Hiking Authentication</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/base.css">
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Rio de Janeiro Hiking Authentication</h1>
+    <main class="login-main">
+        <div class="login-container">
+            <h1 class="login-container-headers">Rio de Janeiro Hiking Authentication</h1>
+            <div id="login-auth-section">
+                <div class="login-auth-form" id="login-register-form">
+                    <h2 class="login-container-headers">Register</h2>
+                    <input type="email" id="login-register-email" placeholder="Email" required>
+                    <input type="password" id="login-register-password" placeholder="Senha" required>
+                    <button id="login-btn-register">Register</button>
+                    <p class="toggle-link">Already have an account?<a href="#" id="login-show">FLog In</a></p>
+                </div>
 
-        <div id="auth-section">
-            <div class="auth-form" id="register-form">
-                <h2>Register</h2>
-                <input type="email" id="register-email" placeholder="Email" required>
-                <input type="password" id="register-password" placeholder="Senha" required>
-                <button id="btn-register">Register</button>
-                <p class="toggle-link">Already have an account?<a href="#" id="show-login">FLog In</a></p>
+                <div class="login-auth-form hidden" id="login-form">
+                    <h2 class="login-container-headers">Login</h2>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button id="btn-login">Log In</button>
+                    <button id="btn-google-login">Log In Google</button>
+                    <button id="login-btn-reset-password">Forgot Password</button>
+                    <p class="toggle-link">Don't have an account? <a href="#" id="show-register">Register</a></p>
+                </div>
             </div>
 
-            <div class="auth-form hidden" id="login-form">
-                <h2>Login</h2>
-                <input type="email" id="login-email" placeholder="Email" required>
-                <input type="password" id="login-password" placeholder="Password" required>
-                <button id="btn-login">Log In</button>
-                <button id="btn-google-login">Log In Google</button>
-                <button id="btn-reset-password">Forgot Password</button>
-                <p class="toggle-link">Don't have an account? <a href="#" id="show-register">Register</a></p>
+            <div id="dashboard-section" class="hidden">
+                <h2 class="login-container-headers">Bem-vindo(a)!</h2>
+                <p>Você está logado(a) como: <span id="login-user-email"></span></p>
+                <p>UID: <span id="login-user-uid"></span></p>
+                <p>Nome: <span id="login-user-display-name"></span></p>
+                <button id="btn-logout">Sair</button>
+                <button id="btn-delete-account">Excluir Minha Conta</button>
             </div>
         </div>
-
-        <div id="dashboard-section" class="hidden">
-            <h2>Bem-vindo(a)!</h2>
-            <p>Você está logado(a) como: <span id="user-email"></span></p>
-            <p>UID: <span id="user-uid"></span></p>
-            <p>Nome: <span id="user-display-name"></span></p>
-            <button id="btn-logout">Sair</button>
-            <button id="btn-delete-account">Excluir Minha Conta</button>
+        <div id="custom-alert-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <p id="custom-alert-message"></p>
+                <button id="custom-alert-ok-button">OK</button>
+            </div>
         </div>
-    </div>
-
-    <div id="custom-alert-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <p id="custom-alert-message"></p>
-            <button id="custom-alert-ok-button">OK</button>
-        </div>
-    </div>
-
+    </main>
     <script src="./js/script.js" type="module"></script>
 </body>
 </html>
