@@ -76,7 +76,7 @@ export async function handler(event, context) {
     // Acessa a collection e busca os dados
     const collection = db.collection("hiking-details");
     const hikingDetails = await collection.find({}).toArray();
-
+    console ("obtive os dados");
     // Retorna os dados como JSON
     return {
       statusCode: 200,

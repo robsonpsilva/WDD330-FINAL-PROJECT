@@ -25,7 +25,8 @@ export default defineConfig({
         thanks: "src/js/thanks.js",
         loginjs: "src/js/login.js",
         getdates: "src/js/getdates.js",
-        script: "src/js/script.js"
+        script: "src/js/script.js",
+        netlify: "src/netlify/functions/getHikingDetails.js"
       },
     },
   },
