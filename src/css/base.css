@@ -571,6 +571,7 @@ input[type="password"] {
     justify-content: space-evenly;
 }
 .home-cards {
+    width: auto;
     display: grid;
     gap: 1rem;
     padding: 15px;
