@@ -676,6 +676,7 @@ transition: transform 0.3s;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--standard-blue);
     width: 80%;
     max-width: 500px;
 }
