@@ -880,6 +880,10 @@ select:invalid:required {
     margin-top: 10px;
     font-weight: bold;
 }
+#map {
+    height: 600px;
+    width: 100%;
+}
 
 @media (min-width: 300px) and (max-width: 640px) {
     .home-cards {
