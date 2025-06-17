@@ -1,14 +1,15 @@
 
-h1{
+/* h1{
     margin-top: 10px;
     margin-left: 15px;
     color: var(--standard-blue);
 }
 h2{
     margin: 10px;
-}
+} */
 
-input[type="date"]:invalid:required,
+
+/* #schedule-form input[type="date"]:invalid:required,
 input[type="time"]:invalid:required,
 select:invalid:required {
     border-left-color: red;
@@ -53,13 +54,13 @@ select:invalid:required {
 }
 #schedule-form button:hover {
     background-color: black;
-}
-@media (max-width: 600px) {
+} */
+/* @media (max-width: 600px) {
     #hiking-scheduler {
         margin: 0 auto;
         width: 94%;
         margin-top: 10px;
         margin-bottom: 10px;
     }
-}
+} */
     

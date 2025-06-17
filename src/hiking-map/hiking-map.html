@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -59,16 +59,16 @@
         </div>
         <h1>Localizar Rota de Hiking</h1>
 
-        <div class="controls">
+        <div class="hiking-controls">
             <div>
                 <label for="trailSelect">Selecionar Trilha:</label>
                 <select id="trailSelect" onchange="loadMap()">
                     <option value="">-- Selecione uma trilha --</option>
                 </select>
-                <div id="loader" class="loader"></div>
+                <div id="loader" class="hiking-loader"></div>
             </div>
         </div>
-        <div id="errorMessage" class="error"></div>
+        <div id="errorMessage" class="hiking-error"></div>
 
         <div id="map"></div>
 

@@ -12,14 +12,12 @@
 
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/large.css">
-    <link rel="stylesheet" href="../css/details.css">
 
     <script src="../js/base.js" type="module"></script>
     <script src="../js/getdates.js" type="module"></script>
     <script src="../js/details.js" type="module"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="../js/login.js" type="module" defer></script>
-
  </head>
 <body>
     <header id = "header-container" class = "header-container">
@@ -59,49 +57,49 @@
         <div class="hero">
             <button class="cta-button" onclick="goToJoin()">Join Us</button>
         </div>
-        <h1>Details</h1>
-        <div id="select-option">
-            <label for="trailSelect" id="lbtrailSelect">Select your trail:</label> 
-            <select id="trailSelect" onchange="updateTrailDetails()">
-                <option value="1">Telegraph Rock</option>
-                <option value="2">Dois Irmãos Hill</option>
-                <option value="3">Gavea Rock</option>
-                <option value="4">Pedra Bonita</option>
-                <option value="5">Gabriela Waterfall</option>
-                <option value="6">Urca Trail</option>
-            </select>
-        </div>
-        
+        <h1 class="details-h1">Details</h1>
+
         <div id="detail-image-container">
+            <div id="detail-select-option">
+                <label for="trailSelect" id="lbtrailSelect">Select your trail:</label> 
+                <select id="trailSelect" onchange="updateTrailDetails()">
+                    <option value="1">Telegraph Rock</option>
+                    <option value="2">Dois Irmãos Hill</option>
+                    <option value="3">Gavea Rock</option>
+                    <option value="4">Pedra Bonita</option>
+                    <option value="5">Gabriela Waterfall</option>
+                    <option value="6">Urca Trail</option>
+                </select>
+            </div>
             <img src="../images/pedra-do-telegrafo.webp" alt="Pedra do Telegrafo Details Image" id="imageofplace">
             <p id="detail"></p>
         </div>
-        <div class="cards">
-            <div class="card action">
-                <div class="summarycard">
+        <div class="detail-cards">
+            <div class="detail-card">
+                <div class="detail-summarycard">
                     <h2>Trail Information</h2>
-                    <div class="info">
+                    <div class="detail-info">
                       <label>Type:</label>
                       <span id="type"></span>
                     </div>
-                    <div class="info">
+                    <div class="detail-info">
                       <label>Region:</label>
                       <span id="region"></span>
                     </div>
-                    <div class="info">
+                    <div class="detail-info">
                       <label>Duration:</label>
                       <span id="duration"></span>
                     </div>
                 </div>
-                <button class="service-button" onclick="viewMap()"> View Map</button>
+                <button class="detail-service-button" onclick="viewMap()"> View Map</button>
                 <br>
                 <h2>Service Options</h2>
-                <button class="service-button" onclick="schedule()">Schedule a trail</button>
-                <button class="service-button" onclick="equipmentPurchaseRent()">Buy or Rent Safety Equipment</button>
+                <button class="detail-service-button" onclick="schedule()">Schedule a trail</button>
+                <button class="detail-service-button" onclick="equipmentPurchaseRent()">Buy or Rent Safety Equipment</button>
             </div>
-            <div class="card">
+            <div class="detail-card">
                 <h2>Suggestions on what to bring</h2>
-                <ul>
+                <ul class ="details-ul">
                     <li>Backpack of sufficient size for your belongings</li>
                     <li>2.5 liters of drinks – isotonic beverages, water, juice</li>
                     <li>Footwear for hiking</li>
@@ -113,7 +111,7 @@
                     <li>Swimwear</li>
                     <li>Spare clothes</li>
                     <li>Garbage bag</li>
-                  </ul> 
+                </ul> 
             </div>
         </div>
     </main>

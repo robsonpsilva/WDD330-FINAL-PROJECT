@@ -15,7 +15,7 @@ export async function fetchProducts() {
     const productList = document.getElementById("product-list");
     products.forEach(product => {
       const card = document.createElement("div");
-      card.className = "card";
+      card.className = "sell-card";
       card.innerHTML = `
         <img src="${product.image}" alt="${product.name}" loading="lazy">
         <h2>${product.name}</h2>

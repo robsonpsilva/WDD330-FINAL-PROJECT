@@ -2,15 +2,15 @@
     height: 600px; /* Altura do mapa */
     width: 100%;
 }
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 20px;
     background-color: #f4f4f4;
 }
 h1 {
     color: #333;
-}
-.controls {
+} */
+/* .hiking-controls {
     margin-bottom: 20px;
     background-color: #fff;
     padding: 15px;
@@ -21,19 +21,19 @@ h1 {
     gap: 10px;
     align-items: flex-end;
 }
-.controls label {
+.hiking-controls label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
 }
-.controls input[type="text"] {
+.hiking-controls input[type="text"] {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 250px;
 }
-.controls button {
+.hiking-controls button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -43,17 +43,17 @@ h1 {
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
-.controls button:hover {
+.hiking-controls button:hover {
     background-color: #0056b3;
-}
-.loader {
+} */
+/* .hiking-loader {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #3498db;
     border-radius: 50%;
     width: 20px;
     height: 20px;
     animation: spin 1s linear infinite;
-    display: none; /* Escondido por padrão */
+    display: none; 
     margin-left: 10px;
     vertical-align: middle;
 }
@@ -61,8 +61,8 @@ h1 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-.error {
+.hiking-error {
     color: red;
     margin-top: 10px;
     font-weight: bold;
-}
+} */

@@ -43,8 +43,8 @@ fetch("../json/hiking-places.json")
     let i = 1;
     data.forEach(item => {
       const card = document.createElement("article");
-      card.classList.add("card");
-      card.classList.add(`card${i}`);
+      card.classList.add("home-card");
+      card.classList.add(`home-card${i}`);
       card.classList.add("image-container");
 
       card.innerHTML = `
@@ -54,9 +54,9 @@ fetch("../json/hiking-places.json")
         </figure>
         <address>${item.address}</address>
         <br>
-        <p class = "justified">${item.description}</p>
+        <p class = "home-justified">${item.description}</p>
         <br>
-        <button class = "learnmorebtn"  onclick="goToDetail(${i})">Learn More</button>
+        <button class = "home-learnmorebtn"  onclick="goToDetail(${i})">Learn More</button>
       `;
       i++;
       cardsContainer.appendChild(card);

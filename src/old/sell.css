@@ -1,13 +1,13 @@
-body {
+/* body {
     margin: 0;
     font-family: Arial, sans-serif;
-  }
-h1{
+  } */
+/* h1{
     margin-top: 10px;
     margin-left: 15px;
     color: var(--standard-blue);
-}
-.cta-button {
+} */
+/* .cta-button {
     position: absolute;
     top: 10%;
     right: 5%;
@@ -19,13 +19,13 @@ h1{
     border-radius: 5px;
     cursor: pointer;
     font-size: var(--small-font);
-}
-.container {
+} */
+/* .sell-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-.card {
+} */
+/* .card {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 16px;
@@ -46,47 +46,47 @@ h1{
 }
 .card input {
     width: 50px;
-}
-.cart {
+} */
+/* .sell-cart {
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
-.cart table {
+.sell-cart table {
     border-collapse: collapse;
-    width: 90%; /* Ajuste para ocupar quase toda a largura da tela */
-    max-width: 1200px; /* Largura máxima */
+    width: 90%; 
+    max-width: 1200px; 
 }
-.cart th, .cart td {
+.sell-cart th, .sell-cart td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
 }
-.cart th {
+.sell-cart th {
     background-color: #f2f2f2;
-}
+} */
 
-#cart-summary{
+/* #cart-summary{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+} */
 
-.finalize-button {
+/* .sell-finalize-button {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
     margin-top: 10px;
 }
-.finalize-button button{
+.sell-finalize-button button{
     width: 200px;
     height: 30px;
     background-color: var(--standard-blue);
     color: var(--standard-white);
     font-size: var(--small-font);
-}
-@media (min-width: 768px) {
+} */
+/* @media (min-width: 768px) {
     .container {
         justify-content: space-between;
     }
@@ -99,4 +99,4 @@ h1{
         width: 130px;
         
     }
-}
+} */
