@@ -23,7 +23,7 @@ export default defineConfig({
         products: "src/js/products.js",
         purchase: "src/js/purchase.js",
         scheduler: "src/js/scheduler.js",
-        thanks: "src/js/thanks.js",
+        thanksJs: "src/js/thanks.js",
         loginjs: "src/js/login.js",
         getdates: "src/js/getdates.js",
         script: "src/js/script.js",
