@@ -16,6 +16,7 @@ export default defineConfig({
         schedule: resolve(__dirname, "src/schedule/schedule.html"), 
         hikingmap: resolve(__dirname,"src/hiking-map/hiking-map.html"),
         home: resolve(__dirname, "src/home.html"),
+        thanks: resolve(__dirname,"src/join/thanks.html"),
         base: "src/js/base.js",
         cart: "src/js/cart.js",
         hiking: "src/js/hiking-map.js",
