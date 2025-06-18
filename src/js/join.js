@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 5000);
         } else {
             // Constrói a URL com os dados como parâmetros
-            const thankYouUrl = `../thanks.html?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&experience=${encodeURIComponent(experience)}`;
+            const thankYouUrl = `../join/thanks.html?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&experience=${encodeURIComponent(experience)}`;
 
             // Exibe overlay de sucesso
             document.getElementById("successOverlay").style.display = "flex";
