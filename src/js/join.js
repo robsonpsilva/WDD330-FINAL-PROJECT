@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errorMessage) {
             // Exibe overlay de erro
             const errorOverlay = document.getElementById("error-overlay");
-            errorOverlay.innerHTML = `<div join-overlay-content> <p>${errorMessage}</p> </div>`;
+            errorOverlay.innerHTML = `<div class = "join-overlay-content"> <p>${errorMessage}</p> </div>`;
             errorOverlay.style.display = "flex";
 
             // Oculta o overlay após alguns segundos
