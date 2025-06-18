@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Oculta o overlay após alguns segundos
             setTimeout(() => {
                 errorOverlay.style.display = "none";
-            }, 3000);
+            }, 5000);
         } else {
             // Constrói a URL com os dados como parâmetros
             const thankYouUrl = `./thanks.html?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&experience=${encodeURIComponent(experience)}`;
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("successOverlay").style.display = "none";
                 document.getElementById("registrationForm").reset(); // Limpa o formulário
                 window.location.href = thankYouUrl; // Redireciona para a página de agradecimento
-            }, 2000);
+            }, 5000);
         }
     });
 });
