@@ -46,17 +46,17 @@ const userDisplayNameSpan = document.getElementById("login-user-display-name");
 const showLoginLink = document.getElementById("login-show");
 const showRegisterLink = document.getElementById("show-register");
 
-const customAlertModal = document.getElementById('custom-alert-modal');
-const customAlertMessage = document.getElementById('custom-alert-message');
-const customAlertOkButton = document.getElementById('custom-alert-ok-button');
+const customAlertModal = document.getElementById("custom-alert-modal");
+const customAlertMessage = document.getElementById("custom-alert-message");
+const customAlertOkButton = document.getElementById("custom-alert-ok-button");
 
 function showCustomAlert(message) {
     customAlertMessage.textContent = message;
-    customAlertModal.classList.remove('hidden'); // Exibe a modal
+    customAlertModal.classList.remove("hidden"); // Exibe a modal
 }
 if (customAlertOkButton) {
-    customAlertOkButton.addEventListener('click', () => {
-        customAlertModal.classList.add('hidden'); // Esconde a modal
+    customAlertOkButton.addEventListener("click", () => {
+        customAlertModal.classList.add("hidden"); // Esconde a modal
     });
 }
 
@@ -115,6 +115,7 @@ btnRegister.addEventListener("click", async () => {
         // Opcional: Salvar alguns dados básicos no Firestore após o registro
         await db.collection("users").doc(user.uid).set({
             email: user.email,
+            // eslint-disable-next-line no-undef
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
         
@@ -148,6 +149,7 @@ btnLogin.addEventListener("click", async () => {
 
 // Login com Google
 btnGoogleLogin.addEventListener("click", async () => {
+    // eslint-disable-next-line no-undef
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
         const result = await auth.signInWithPopup(provider);
@@ -163,6 +165,7 @@ btnGoogleLogin.addEventListener("click", async () => {
                 displayName: user.displayName,
                 photoURL: user.photoURL,
                 providerId: result.credential.providerId,
+                // eslint-disable-next-line no-undef
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
         }
