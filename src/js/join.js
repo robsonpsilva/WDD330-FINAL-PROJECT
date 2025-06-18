@@ -14,18 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
         let errorMessage = "";
 
         if (name.length < 2) {
-            errorMessage += "O nome deve ter pelo menos 2 caracteres.<br>";
+            errorMessage += "The name must be at least 2 characters long.<br>";
         }
         if (phone.length < 7) {
-            errorMessage += "O telefone deve ter pelo menos 7 caracteres.<br>";
+            errorMessage += "The phone number must be at least 7 characters long.<br>";
         }
         if (address.length < 10) {
-            errorMessage += "O endereço deve ter pelo menos 10 caracteres.<br>";
+            errorMessage += "The address must be at least 10 characters long.<br>";
         }
 
         if (errorMessage) {
             // Exibe overlay de erro
-            const errorOverlay = document.getElementById("errorOverlay");
+            const errorOverlay = document.getElementById("error-overlay");
             errorOverlay.innerHTML = `<p>${errorMessage}</p>`;
             errorOverlay.style.display = "flex";
 
