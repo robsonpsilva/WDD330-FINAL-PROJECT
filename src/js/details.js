@@ -1,15 +1,16 @@
+// ------------------loadData()-------------------------------------
+//The following function loads the data from the hiking-details.json 
+// file and, from there, builds the screen, loading this data onto the screen.
 async function loadData(p) {
     try {
       const select = document.getElementById("trailSelect");
       select.value = p;
       const adjustedPlace = p - 1;
 
-      const response = await fetch("../json/hiking-details.json"); // Caminho para o arquivo JSON
-      //const response = await fetch("/api/get-hiking-details");
-      //console.log(response);
+      const response = await fetch("../json/hiking-details.json"); // Path to JSON file
       const trailInfo = await response.json();
       
-      // Seleciona os primeiros dados do array
+      // Selects the first data from the array
       const data = trailInfo[adjustedPlace];
 
       // Preenche os campos no HTML
@@ -30,10 +31,10 @@ async function loadData(p) {
   }
 
   function equipmentPurchaseRent() {
-    // URL da página de interesse
+    // URL of the page of interest
     var url = "../cart/sell.html";
     
-    // Abre a URL no navegador
+    // Open the URL in the browser
     window.location.href = url;
 }
 
@@ -56,7 +57,7 @@ function viewMap() {
     }
 }
 
-  // Executa a função ao carregar a página
+  // Run the function when the page loads
   const params = new URLSearchParams(window.location.search);
   const place = params.get("number")
   window.onload = loadData(place);

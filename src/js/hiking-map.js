@@ -83,6 +83,8 @@ async function loadSelectedTrail(trailsData) {
     }
 }
 
+// -------------Get Coordinates -------------------
+//This section gets coordinates using place names.
 async function getCoordinates(placeName) {
     const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
 
@@ -106,7 +108,9 @@ async function getCoordinates(placeName) {
         throw new Error(`Location not found: ${placeName}`);
     }
 }
-// --- Main logic to fetch the route (now with parameters) ---
+//--------------------------------------------------------------------------
+
+// --- Main logic to fetch the route ---
 async function findRoute(startPointName, endPointName) {
     const errorMessageDiv = document.getElementById("errorMessage");
     const loader = document.getElementById("loader"); // Loader should already be visible here
@@ -199,7 +203,7 @@ async function findRoute(startPointName, endPointName) {
         loader.style.display = "none"; // Hide the loader
     }
 }
-
+//---------------------------------------------------------------------------------
 function MapFirstLoad(){
     
     loadTrailsData()
