@@ -354,7 +354,7 @@ input[type="password"] {
     font-size: var(--small-font);
 }
 .cta-button:hover{  
-    transform: scale(1.5);
+    transform: scale(1.1);
 }
 
 /* Formating Header and menu starting */
