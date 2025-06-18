@@ -9,7 +9,8 @@ hamButton.addEventListener("click", () => {
 });
 
 
-
+// -----------------------------------------------------------------------------------
+// Wayfinder
 document.addEventListener("DOMContentLoaded", () => {
   listaItens.forEach(item => {
         item.addEventListener("click", () => {
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       });
     });
+
 
 function tWayFinder(item){
 	listaItens.forEach(elem => {
@@ -28,7 +30,10 @@ function tWayFinder(item){
 		}
 	})
 }
+//------------------------------------------------------------------------------------
 
+// -----------------------------------------------------------------------------------
+// Load Hiking Trails from the Json file hiking-places.json.
 fetch("../json/hiking-places.json")
   .then(response => {
     if (!response.ok) {
@@ -65,6 +70,8 @@ fetch("../json/hiking-places.json")
   .catch(error => {
     localStorage.setItem("Err", error);
   });
+
+  // --------------------------------------------------------------------------------------------------
 
   function goToDetail(number) {
     // Redireciona para a página detail com o parâmetro na URL

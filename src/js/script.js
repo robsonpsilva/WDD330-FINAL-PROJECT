@@ -11,10 +11,13 @@ const firebaseConfig = {
 };
 
 // Inicializa o Firebase
+// eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
 // Referências aos serviços do Firebase que vamos usar
+// eslint-disable-next-line no-undef
 const auth = firebase.auth();
+// eslint-disable-next-line no-undef
 const db = firebase.firestore(); // Opcional: para salvar/recuperar dados do usuário
 
 // Referências aos elementos HTML
