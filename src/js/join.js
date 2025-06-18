@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const registrationForm = document.getElementById("registrationForm");
 
+    // -----------------------------------------------------------------------
+    
     registrationForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 
