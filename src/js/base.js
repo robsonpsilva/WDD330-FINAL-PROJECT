@@ -12,12 +12,12 @@ hamButton.addEventListener("click", () => {
 // -----------------------------------------------------------------------------------
 // Wayfinder
 document.addEventListener("DOMContentLoaded", () => {
-  listaItens.forEach(item => {
-        item.addEventListener("click", () => {
-            tWayFinder(item)
-        })
-      });
-    });
+listaItens.forEach(item => {
+    item.addEventListener("click", () => {
+        tWayFinder(item)
+    })
+  });
+});
 
 
 function tWayFinder(item){
@@ -34,7 +34,7 @@ function tWayFinder(item){
 
 // -----------------------------------------------------------------------------------
 // Load Hiking Trails from the Json file hiking-places.json.
-fetch("../json/hiking-places.json")
+  fetch("../json/hiking-places.json")
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
